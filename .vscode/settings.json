@@ -11,7 +11,8 @@
     "pnpm-lock.yaml": true,
     "README.md": true,
     ".prettierrc": true,
-    ".pnpm-debug.log": true
+    ".pnpm-debug.log": true,
+    ".eslintignore": true
   },
   "editor.quickSuggestions": {
     // tailwind

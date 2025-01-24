@@ -1,0 +1,9 @@
+<template>
+  <div>
+    <aside>
+      <main>
+        <slot></slot>
+      </main>
+    </aside>
+  </div>
+</template>
