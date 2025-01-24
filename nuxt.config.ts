@@ -4,6 +4,9 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   srcDir: 'src/',
   modules: ['@nuxtjs/tailwindcss', '@nuxtjs/color-mode'],
+  colorMode: {
+    classSuffix: '',
+  },
   runtimeConfig: {
     public: {
       appName: '黑喵',

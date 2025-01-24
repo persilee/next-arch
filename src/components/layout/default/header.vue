@@ -8,16 +8,6 @@
   </header>
 </template>
 
-<style lang="postcss">
-.dark-mode {
-  @apply bg-black text-white;
-}
-
-.light-mode {
-  @apply bg-white text-black;
-}
-</style>
-
 <script setup lang="ts">
 const colorMode = useColorMode()
 console.log(colorMode)

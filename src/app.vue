@@ -1,5 +1,11 @@
 <template>
-  <NuxtLayout>
+  <NuxtLayout
+    :class="[
+      'font-light min-h-screen',
+      'bg-white text-black',
+      'dark:bg-black dark:text-white',
+    ]"
+  >
     <NuxtPage></NuxtPage>
   </NuxtLayout>
 </template>
