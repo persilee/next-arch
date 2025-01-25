@@ -1,9 +1,8 @@
 <template>
   <div>
-    <aside>
-      <main>
-        <slot></slot>
-      </main>
-    </aside>
+    <LayoutConsoleAside />
+    <LayoutConsoleMain>
+      <slot></slot>
+    </LayoutConsoleMain>
   </div>
 </template>

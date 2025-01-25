@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
   srcDir: 'src/',
-  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/color-mode'],
+  modules: ['@nuxt/ui'],
   colorMode: {
     classSuffix: '',
   },
@@ -14,6 +14,12 @@ export default defineNuxtConfig({
     surreal: {
       rootUser: 'root',
       rootPass: '123456',
+    },
+  },
+  ui: {},
+  icon: {
+    serverBundle: {
+      collections: ['solar', 'ri'],
     },
   },
 })

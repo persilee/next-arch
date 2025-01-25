@@ -37,10 +37,13 @@ useHead({
     },
     {
       rel: 'apple-touch-icon',
+      type: 'image/png',
+      sizes: '180x180',
       href: '/apple-touch-icon.png',
     },
     {
       rel: 'manifest',
+      type: 'application/json',
       href: '/site.webmanifest',
     },
   ],

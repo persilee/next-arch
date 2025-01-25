@@ -25,7 +25,7 @@ type Props = {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  wrapper: 'flex gap-3',
+  wrapper: 'flex gap-1',
   variant: 'full',
   height: 'h-8',
 })
@@ -56,11 +56,13 @@ const showGraph = computed(() => {
     background-color: currentColor;
     mask-repeat: no-repeat;
     mask-size: 100% 100%;
+    mask-position: center;
   }
 
   .graph {
     aspect-ratio: 1 / 1;
     mask-image: url('/images/logo-icon.svg');
+    mask-size: 80% 80%;
   }
 
   .text {
