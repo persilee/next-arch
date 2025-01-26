@@ -12,6 +12,33 @@ defineShortcuts({
     },
   },
 })
+
+const onClick = () => {
+  const toast = useToast()
+  toast.add({
+    id: 'notification-1',
+    title: '通知',
+    description: '这是一条通知',
+    icon: 'i-heroicons-information-circle',
+    actions: [
+      {
+        label: '关闭',
+        color: 'primary',
+        variant: 'outline',
+        click: () => {
+          toast.remove('notification-1')
+        },
+      },
+      {
+        label: '接受',
+        color: 'green',
+        click: () => {
+          toast.remove('notification-1')
+        },
+      },
+    ],
+  })
+}
 </script>
 
 <template>
@@ -31,5 +58,8 @@ defineShortcuts({
     <UModal v-model="isModalOpen">
       <UCard>快捷键</UCard>
     </UModal>
+    <div class="flex gap-3">
+      <UButton color="purple" @click="onClick">通知</UButton>
+    </div>
   </div>
 </template>

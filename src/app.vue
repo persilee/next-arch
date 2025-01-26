@@ -6,7 +6,8 @@
       'dark:bg-black dark:text-white',
     ]"
   >
-    <NuxtPage></NuxtPage>
+    <NuxtPage />
+    <UNotifications />
   </NuxtLayout>
 </template>
 
