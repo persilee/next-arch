@@ -2,6 +2,7 @@
 
 <template>
   <form class="space-y-4">
+    <ReceptionFormIdentifierInput scene="signup" />
     <div class="py-4">
       <ReceptionElementButton label="注册">
         <template #description>
