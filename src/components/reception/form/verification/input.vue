@@ -2,7 +2,7 @@
 import type { UInput } from '#components'
 
 const items = ref<Array<string>>(new Array(4).fill(''))
-const refs = ref<Array<InstanceType<typeof UInput>>>([])
+const refs = ref<Array<InstanceType<typeof UInput> | null>>([])
 
 const onInput = (index: number, event: Event) => {
   const { value } = event.target as HTMLInputElement
@@ -10,27 +10,35 @@ const onInput = (index: number, event: Event) => {
 
   if (value.length === 1) {
     if (index < items.value.length - 1) {
-      refs.value[index + 1]?.input?.focus()
+      const nextRef = refs.value[index + 1]
+      if (nextRef && 'input' in nextRef && nextRef.input) {
+        nextRef.input.focus()
+      }
     }
   }
 }
 
 const onPaste = (index: number, event: ClipboardEvent) => {
-  const text = event.clipboardData!.getData('text').replace(/\D/g, '').slice(0, 4)
+  const clipboardData = event.clipboardData
+  if (clipboardData) {
+    const text = clipboardData.getData('text').replace(/\D/g, '').slice(0, 4)
 
-  text.split('').forEach((char, i) => {
-    if (index + i < items.value.length) {
-      items.value[index + i] = char
-    }
-  })
+    text.split('').forEach((char, i) => {
+      if (index + i < items.value.length) {
+        items.value[index + i] = char
+      }
+    })
 
-  refs.value.forEach((item, i) => {
-    if (i >= index && i < index + text.length) {
-      item.input?.focus()
-    } else {
-      item.input?.blur()
-    }
-  })
+    refs.value.forEach((item, i) => {
+      if (item && 'input' in item) {
+        if (i >= index && i < index + text.length) {
+          item.input?.focus()
+        } else {
+          item.input?.blur()
+        }
+      }
+    })
+  }
 }
 
 const onKeydown = (index: number, event: KeyboardEvent) => {
@@ -54,7 +62,6 @@ const onKeydown = (index: number, event: KeyboardEvent) => {
       autocomplete="off"
       v-for="(value, index) in items"
       :key="index"
-      :value="value"
       ref="refs"
       v-model="items[index]"
       @input="onInput(index, $event)"
