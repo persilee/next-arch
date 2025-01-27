@@ -15,5 +15,9 @@ useHead({
 </script>
 
 <template>
-  <div></div>
+  <div>
+    <div class="mb-6">
+      <ReceptionProviderWechatButton scene="signup" />
+    </div>
+  </div>
 </template>
