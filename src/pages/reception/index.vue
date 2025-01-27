@@ -18,6 +18,7 @@ useHead({
   <div>
     <div class="mb-6">
       <ReceptionProviderWechatButton scene="signup" />
+      <ReceptionElementSeparator label="通过用户名注册" />
     </div>
   </div>
 </template>
