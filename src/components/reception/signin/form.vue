@@ -1,8 +1,11 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const signinMethod = useState('signinMethod')
+</script>
 
 <template>
   <form class="space-y-4">
     <ReceptionFormIdentifierInput scene="signin" />
+    <ReceptionFormPasswordInput v-if="signinMethod === 'password'" withReset />
     <div class="py-4">
       <ReceptionElementButton label="登录">
         <template #description>

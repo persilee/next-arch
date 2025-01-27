@@ -26,6 +26,7 @@ const separatorLabel = computed(() => {
   <div>
     <div class="space-y-4">
       <ReceptionProviderWechatButton scene="signin" />
+      
     </div>
     <ReceptionElementSeparator :label="separatorLabel" />
     <ReceptionSigninForm />
