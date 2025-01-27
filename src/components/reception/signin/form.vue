@@ -6,6 +6,7 @@ const signinMethod = useState('signinMethod')
   <form class="space-y-4">
     <ReceptionFormIdentifierInput scene="signin" />
     <ReceptionFormPasswordInput v-if="signinMethod === 'password'" withReset />
+    <ReceptionFormVerificationInput v-if="signinMethod === 'verification'" />
     <div class="py-4">
       <ReceptionElementButton label="登录">
         <template #description>
