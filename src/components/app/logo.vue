@@ -62,12 +62,12 @@ const showGraph = computed(() => {
   .graph {
     aspect-ratio: 1 / 1;
     mask-image: url('/images/logo-icon.svg');
-    mask-size: 80% 80%;
   }
 
   .text {
     aspect-ratio: 16 / 9;
     mask-image: url('/images/logo-text.svg');
+    mask-size: 90% 90%;
   }
 }
 </style>
