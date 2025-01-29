@@ -16,10 +16,12 @@ const isModalOpen = ref(false)
       </div>
     </div>
     <UModal v-model="isModalOpen" class="md:hidden">
-      <LayoutConsoleAsideNavigation />
-      <template #footer>
-        <UserAccountDropdown withName class="px-4" />
-      </template>
+      <UCard>
+        <LayoutConsoleAsideNavigation />
+        <template #footer>
+          <UserAccountDropdown withName class="px-4" />
+        </template>
+      </UCard>
     </UModal>
   </aside>
 </template>
