@@ -8,6 +8,27 @@ const { data, pending } = await useLazyFetch<any>(
 const rows = computed(() => {
   return data.value
 })
+
+const columns = [
+  {
+    key: 'name',
+    label: '名称',
+  },
+  {
+    key: 'oneline',
+    label: '简介',
+  },
+  {
+    key: 'industry',
+    label: '行业',
+    sortable: true,
+  },
+  {
+    key: 'teamSize',
+    label: '团队规模',
+    sortable: true,
+  },
+]
 </script>
 
 <template>
@@ -17,6 +38,7 @@ const rows = computed(() => {
       :loading="pending"
       :loadingState="table.loadingState"
       :rows="rows"
+      :columns="columns"
     ></UTable>
   </div>
 </template>
