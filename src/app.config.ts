@@ -34,4 +34,18 @@ export default defineAppConfig({
       label: '加载中...',
     },
   },
+  pagination: {
+    activeButton: { variant: 'ghost' },
+    inactiveButton: { variant: 'ghost' },
+    prevButton: {
+      icon: 'i-solar-alt-arrow-left-linear',
+      variant: 'ghost',
+      color: 'white',
+    },
+    nextButton: {
+      icon: 'i-solar-alt-arrow-right-linear',
+      variant: 'ghost',
+      color: 'white',
+    },
+  },
 })

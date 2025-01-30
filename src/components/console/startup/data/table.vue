@@ -8,7 +8,11 @@ const { data, pending } = await useLazyFetch<any>(
 )
 
 const rows = computed(() => {
-  return data.value
+  if (!data.value) return []
+  return filtered.value.slice(
+    (page.value - 1) * pageCount.value,
+    page.value * pageCount.value,
+  )
 })
 
 const columns = [
@@ -32,10 +36,30 @@ const columns = [
     sortable: true,
   },
 ]
+
+const keyword = ref('')
+
+const filtered = computed((item: any) => {
+  if (!data.value) return []
+
+  return data.value.filter((item: any) => {
+    return Object.values(item).some((value) => {
+      return String(value).toLowerCase().includes(keyword.value.toLocaleLowerCase())
+    })
+  })
+})
+
+const page = ref(1)
+const pageCount = ref(25)
+const total = computed(() => filtered.value.length)
 </script>
 
 <template>
   <div>
+    <div class="mb-4 flex justify-between">
+      <ConsoleFormSearch v-model="keyword" />
+      <ConsoleNavigationPagination v-model="page" :pageCount="pageCount" :total="total" />
+    </div>
     <UTable
       :emptyState="table.emptyState"
       :loading="pending"
