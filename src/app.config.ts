@@ -1,4 +1,3 @@
-// @ts-nocheck
 export default defineAppConfig({
   ui: {
     primary: 'green',
@@ -12,8 +11,8 @@ export default defineAppConfig({
         sortDescIcon: 'i-solar-sort-from-bottom-to-top-linear',
         sortButton: {
           icon: 'i-solar-sort-vertical-linear',
-          color: 'black',
-          variant: 'link',
+          // color: 'black',
+          // variant: 'link',
         },
       },
       wrapper: 'relative overflow-x-scroll',

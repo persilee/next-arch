@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { UAvatar } from '#components'
+
 const { table } = useAppConfig()
 
 const { data, pending } = await useLazyFetch<any>(
@@ -10,6 +12,7 @@ const rows = computed(() => {
 })
 
 const columns = [
+  { key: 'avatar' },
   {
     key: 'name',
     label: '名称',
@@ -39,6 +42,27 @@ const columns = [
       :loadingState="table.loadingState"
       :rows="rows"
       :columns="columns"
-    ></UTable>
+    >
+      <template #avatar-data="{ row }">
+        <UAvatar :src="row.avatar" :alt="row.name" />
+      </template>
+      <template #name-data="{ row }">
+        <div class="flex gap-2 items-center">
+          <div>{{ row.name }}</div>
+          <UTooltip text="头部估值" v-if="row.isTopValuation">
+            <UIcon
+              name="i-solar-medal-ribbons-star-linear"
+              class="text-xs text-amber-400 dark:text-amber-300"
+            />
+          </UTooltip>
+          <UTooltip text="头部营收" v-if="row.isTopRevenue">
+            <UIcon
+              name="i-solar-money-bag-linear"
+              class="text-xs text-violet-400 dark:text-violet-300"
+            />
+          </UTooltip>
+        </div>
+      </template>
+    </UTable>
   </div>
 </template>
