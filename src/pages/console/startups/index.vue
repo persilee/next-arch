@@ -17,5 +17,8 @@ useHead({
 <template>
   <div class="space-y-10">
     <ConsoleBlockHeader title="初创" :add="() => {}" />
+    <div>
+      <ConsoleStartupDataTable />
+    </div>
   </div>
 </template>
