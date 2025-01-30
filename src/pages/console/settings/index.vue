@@ -15,7 +15,7 @@ useHead({
 </script>
 
 <template>
-  <div>
-    <h1>设置</h1>
+  <div class="space-y-10">
+    <ConsoleBlockHeader title="设置" />
   </div>
 </template>

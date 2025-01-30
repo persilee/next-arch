@@ -15,7 +15,7 @@ useHead({
 </script>
 
 <template>
-  <div>
-    <h1>初创</h1>
+  <div class="space-y-10">
+    <ConsoleBlockHeader title="初创" :add="() => {}" />
   </div>
 </template>

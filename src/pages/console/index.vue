@@ -1,5 +1,7 @@
 <template>
-  <div>控制台</div>
+  <div class="space-y-10">
+    <ConsoleBlockHeader title="控制台" />
+  </div>
 </template>
 
 <script setup lang="ts">

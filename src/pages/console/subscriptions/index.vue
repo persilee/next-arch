@@ -15,7 +15,7 @@ useHead({
 </script>
 
 <template>
-  <div>
-    <h1>订阅</h1>
+  <div class="space-y-10">
+    <ConsoleBlockHeader title="订阅" :add="() => {}" />
   </div>
 </template>
