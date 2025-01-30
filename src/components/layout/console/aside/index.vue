@@ -5,7 +5,7 @@ const isModalOpen = ref(false)
 <template>
   <aside
     :class="[
-      'sticky top-0',
+      'sticky top-0 z-10',
       'flex flex-col justify-between gap-8',
       'md:pt-2 md:pb-6 md:h-screen lg:min-w-[260px]',
       'md:ring-1 ring-gray-100 dark:ring-gray-900',

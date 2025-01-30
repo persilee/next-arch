@@ -16,12 +16,12 @@ const onUpdate = (value: string) => {
 </script>
 
 <template>
-  <UInput placeholder="搜索" :modelValue="modalValue" @update:modelValue="onUpdate">
+  <UInput placeholder="搜索" :modelValue="modelValue" @update:modelValue="onUpdate">
     <template #trailing>
       <div class="flex items-center">
         <UButton
           v-if="withReset ? withReset : modelValue"
-          trailing="i-ri-close-line"
+          trailingIcon="i-ri-close-line"
           variant="ghost"
           size="xs"
           :padded="false"
