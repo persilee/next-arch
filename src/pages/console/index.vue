@@ -1,6 +1,6 @@
 <template>
   <div class="space-y-10">
-    <ConsoleBlockHeader title="控制台" />
+    <ConsoleBlockHeader :title="emojiTitle" @click="() => setTitle('console')" />
   </div>
 </template>
 
@@ -9,7 +9,12 @@ definePageMeta({
   layout: 'console',
 })
 
+const store = useConsoleStore()
+const { title, emojiTitle } = storeToRefs(store)
+const { setTitle } = store
+console.log(store)
+
 useHead({
-  title: '控制台',
+  title: () => store.title,
 })
 </script>
