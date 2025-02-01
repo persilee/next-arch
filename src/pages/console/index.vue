@@ -12,7 +12,6 @@ definePageMeta({
 const store = useConsoleStore()
 const { title, emojiTitle } = storeToRefs(store)
 const { setTitle } = store
-console.log(store)
 
 useHead({
   title: () => store.title,

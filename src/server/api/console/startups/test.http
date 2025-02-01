@@ -8,3 +8,10 @@ GET http://{{host}}/api/console/startups/
 
 ###
 POST http://{{host}}/api/console/startups/
+Content-Type: {{contentType}}
+
+{
+  "founder":"persilee",
+  "name": "黑喵",
+  "oneline": "~~~~"
+}

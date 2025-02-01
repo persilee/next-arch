@@ -2,7 +2,6 @@
 import { UButton } from '#components'
 
 const { metaSymbol } = useShortcuts()
-console.log(metaSymbol)
 
 const isModalOpen = ref(false)
 defineShortcuts({
