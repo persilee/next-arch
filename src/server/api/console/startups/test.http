@@ -1,0 +1,10 @@
+@hostname = localhost
+@port = 3000
+@host = {{hostname}}:{{port}}
+@contentType = application/json
+
+###
+GET http://{{host}}/api/console/startups/
+
+###
+POST http://{{host}}/api/console/startups/

@@ -3,9 +3,7 @@ import { UAvatar } from '#components'
 
 const { table } = useAppConfig()
 
-const { data, pending } = await useLazyFetch<any>(
-  'https://resources.ninghao.net/nid-camp/startups.json',
-)
+const { data, pending } = await useLazyFetch<any>('/api/console/startups')
 
 const rows = computed(() => {
   if (!data.value) return []
