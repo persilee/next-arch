@@ -16,7 +16,10 @@ export default defineNuxtConfig({
     },
     surreal: {
       rootUser: 'root',
-      rootPass: '123456',
+      rootPass: '258369',
+      url: 'http://localhost:3303/rpc',
+      namespace: 'heimiao',
+      database: 'app',
     },
   },
   ui: {},

@@ -24,5 +24,6 @@
   ],
   "tailwindCSS.classAttributes": ["class", "className", "ngClass", "ui"],
   "typescript.tsdk": "node_modules/typescript/lib",
-  "explorer.compactFolders": false
+  "explorer.compactFolders": false,
+  "cSpell.words": ["heimiao"]
 }
