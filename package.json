@@ -1,6 +1,7 @@
 {
   "name": "nuxt-app",
   "private": true,
+  "packageManager": "pnpm@9.15.4",
   "type": "module",
   "scripts": {
     "build": "nuxt build",
@@ -8,7 +9,8 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "sdb": "surreal start --allow-all --user root --pass 258369 --bind 0.0.0.0:3303 file:db"
+    "sdb": "dotenv -e .env -- surreal start",
+    "start:dev": "turbo dev sdb"
   },
   "dependencies": {
     "@nuxt/ui": "^2.21.0",
@@ -21,6 +23,8 @@
   },
   "devDependencies": {
     "@iconify-json/ri": "^1.2.5",
-    "@iconify-json/solar": "^1.2.2"
+    "@iconify-json/solar": "^1.2.2",
+    "dotenv-cli": "^8.0.0",
+    "turbo": "^2.4.0"
   }
 }
