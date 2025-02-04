@@ -10,7 +10,9 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "sdb": "dotenv -e .env -- surreal start",
-    "start:dev": "turbo dev sdb"
+    "start:dev": "turbo dev sdb",
+    "sdb:schema": "dotenv -e .env --  surreal import ./src/schema/surreal/app.surql -e http://localhost:3303",
+    "sdb:update": "turbo sdb:schema"
   },
   "dependencies": {
     "@nuxt/ui": "^2.21.0",

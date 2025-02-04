@@ -14,6 +14,9 @@
     "dev": {
       "cache": false,
       "persistent": true
+    },
+    "sdb:schema": {
+      "inputs": ["src/schema/surreal/*.surql"]
     }
   }
 }
