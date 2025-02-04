@@ -1,6 +1,5 @@
 import { z } from 'zod'
 
-const id = z.number()
 const name = z.string()
 const avatar = z.string()
 const oneline = z.string()
@@ -11,7 +10,6 @@ const isTopValuation = z.boolean()
 const isTopRevenue = z.boolean()
 
 export const item = z.object({
-  id,
   name,
   avatar,
   oneline,
