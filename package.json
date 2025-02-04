@@ -12,6 +12,7 @@
     "sdb": "dotenv -e .env -- surreal start",
     "start:dev": "turbo dev sdb",
     "sdb:schema": "dotenv -e .env --  surreal import ./src/schema/surreal/app.surql -e http://localhost:3303",
+    "sdb:demo": "dotenv -e .env --  surreal import ./src/schema/surreal/demo.surql -e http://localhost:3303",
     "sdb:update": "turbo sdb:schema"
   },
   "dependencies": {
