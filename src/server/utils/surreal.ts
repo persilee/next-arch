@@ -10,7 +10,9 @@ export const dbConnect = async () => {
   try {
     // 连接到 SurrealDB 服务器
     await db.connect(url)
-    console.log(`链接服务器成功 ns: ${namespace} , db: ${database}`)
+    console.log(
+      `🎉链接服务器成功 status: ${db.status} ns: ${namespace} , db: ${database}`,
+    )
 
     // 选择命名空间和数据库
     await db.use({ namespace, database })
@@ -21,6 +23,6 @@ export const dbConnect = async () => {
       password: rootPass,
     })
   } catch (error) {
-    console.error(`链接服务失败：${error}`)
+    console.error(`🐛链接服务失败：${error}`)
   }
 }
