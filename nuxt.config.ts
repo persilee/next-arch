@@ -14,6 +14,9 @@ export default defineNuxtConfig({
     public: {
       appName: '黑喵',
     },
+    api: {
+      pageSize: 25,
+    },
     surreal: {
       rootUser: 'root',
       rootPass: '258369',

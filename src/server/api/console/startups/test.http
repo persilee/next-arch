@@ -6,7 +6,7 @@
 ###
 GET http://{{host}}/api/console/startups/
     ?pagination[page]=1
-    &pagination[pageSize]=10
+    &pagination[pageSize]=25
 
 ###
 POST http://{{host}}/api/console/startups/
