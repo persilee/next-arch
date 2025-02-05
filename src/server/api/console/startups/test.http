@@ -7,6 +7,8 @@
 GET http://{{host}}/api/console/startups/
     ?pagination[page]=1
     &pagination[pageSize]=25
+    &sort[field]=created
+    &sort[order]=desc
 
 ###
 POST http://{{host}}/api/console/startups/
