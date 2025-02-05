@@ -6,7 +6,8 @@ import {
   paginationParam,
   sortParam,
 } from '~/schema/app/param'
-import { forEach, isString } from 'lodash-es'
+import { forEach, isArray, isString } from 'lodash-es'
+import { item } from '~/schema/startup'
 
 /**
  * 获取分页信息
@@ -66,14 +67,42 @@ const isOperator = (value: string) => {
   return success
 }
 
+// 判断是否是 or 操作符
+const isOr = (value: string) => {
+  return value === '$or'
+}
+
 /**
- * 获取过滤条件。
+ * 将给定的数据数组连接成一个包含 OR 条件的字符串。
+ *
+ * @param {Array<any>} data - 要处理的数据数组。
+ * @returns {string} 包含 OR 条件的字符串。
+ */
+const connectWithOr = (data: Array<any>) => {
+  const items: Array<string> = []
+
+  data.forEach((item) => {
+    const [[k1, v1]] = Object.entries(item)
+    const [[k2, v2]] = Object.entries(v1 as any)
+
+    if (isOperator(k2)) {
+      items.push(`${k1} ${k2} ${v2}`)
+    }
+  })
+
+  const conditions = items.length > 1 ? `(${items.join(' OR ')})` : items.join('')
+
+  return conditions
+}
+
+/**
+ * 从事件中解析过滤器并生成 SQL 查询条件。
  *
  * @param {H3Event} event - H3 事件对象。
- * @returns {Object} 返回包含过滤条件的对象。
- * @returns {string} returns.where - SQL WHERE 子句。
- * @returns {string} returns.conditions - 过滤条件字符串。
- * @returns {Object} returns.filter - 解析后的过滤条件对象。
+ * @returns {Object} 包含 SQL 查询条件的对象。
+ * @returns {string} return.where - SQL 查询的 WHERE 子句。
+ * @returns {string} return.conditions - 过滤条件的字符串表示。
+ * @returns {Object} return.filter - 解析后的过滤器对象。
  */
 export const getFilter = (event: H3Event) => {
   const { filter } = parseQuery(event, filterParam)
@@ -85,6 +114,12 @@ export const getFilter = (event: H3Event) => {
   const items: Array<string> = []
 
   forEach(filter, (v1, k1) => {
+    if (isOr(k1) && isArray(v1)) {
+      const item = connectWithOr(v1)
+
+      return items.push(item)
+    }
+
     forEach(v1, (v2, k2) => {
       if (!isOperator(k1) && isOperator(k2) && isString(v2)) {
         const item = `${k1} ${k2} ${v2}`
