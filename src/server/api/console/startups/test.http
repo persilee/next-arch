@@ -9,6 +9,8 @@ GET http://{{host}}/api/console/startups/
     &pagination[pageSize]=25
     &sort[field]=created
     &sort[order]=desc
+    &filter[teamSize][<]=10
+    &filter[oneline][∋]='first'
 
 ###
 POST http://{{host}}/api/console/startups/
@@ -19,3 +21,6 @@ Content-Type: {{contentType}}
   "name": "黑喵",
   "oneline": "~~~~"
 }
+
+
+[][=]=true
