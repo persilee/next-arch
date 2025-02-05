@@ -40,7 +40,7 @@ export const executeQuery = async <ZodSchema extends z.ZodTypeAny>(
   try {
     // 执行数据库查询语句
     const [result] = await db.query(statement, statementParams)
-    console.log('aaaaaaaaa', result)
+
     // 如果入参有 Zod 数据验证，就返回序列化后的数据，否则返回原数据
     return schema ? schema.parse(result) : result
   } catch (error) {
