@@ -1,7 +1,12 @@
 import { list } from '~/schema/startup'
 import { executeQuery } from '~/server/utils/surreal'
+import { parseQuery } from '~/server/utils/app/parse'
 
 export default defineEventHandler(async (event) => {
+  // 解析查询参数
+  const queryParams = parseQuery(event)
+  console.log(queryParams)
+
   // 数据库查询语句
   const statement = /* surql */ `
     SELECT * FROM startup ORDER BY created LIMIT $limit;
