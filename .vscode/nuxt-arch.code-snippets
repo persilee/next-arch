@@ -279,5 +279,13 @@
 		"body": [
 			"import { z } from 'zod';"
 		]
+	},
+	"const surql": {
+		"prefix": "sqs",
+		"body": [
+			"const statement${1} = /* surql */ `",
+			" ${2}",
+			"`;"
+		]
 	}
 }

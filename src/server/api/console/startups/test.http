@@ -30,7 +30,7 @@ Content-Type: {{contentType}}
   "password": "123456"
 }
 
-### 验证用户名
+### 发送验证码
 POST http://{{host}}/api/reception/verification/
 Content-Type: {{contentType}}
 

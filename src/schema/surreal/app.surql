@@ -33,6 +33,14 @@ DEFINE EVENT startupUpdated ON TABLE startup WHEN $event == 'CREATE' THEN {
   };
 };
 
+/*
+  定义了 user 表的三个唯一索引：
+  1. nameIndex：在 user 表的 name 字段上创建的唯一索引。
+  2. mobileIndex：在 user 表的 mobile 字段上创建的唯一索引。
+  3. emailIndex：在 user 表的 email 字段上创建的唯一索引。
+*/
 DEFINE INDEX nameIndex ON user FIELDS name UNIQUE;
 DEFINE INDEX mobileIndex ON user FIELDS mobile UNIQUE;
 DEFINE INDEX emailIndex ON user FIELDS email UNIQUE;
+
+DEFINE FIELD created ON verification VALUE $before OR $value OR time::now();

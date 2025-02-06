@@ -1,6 +1,7 @@
 import { z } from 'zod'
 import { compareHash, createHash } from '~/server/utils/app/hash'
 import { readUser } from '~/server/utils/user'
+import { isAllowVerify } from '~/server/utils/verification'
 
 const name = z
   .string({ required_error: '请提供用户名' })
@@ -124,8 +125,9 @@ export const verificationInput = z
 
     if (isValidIdentifier) {
       const user = await readUser({ email: identifier, mobile: identifier }, 'OR')
+      const canVerify = await isAllowVerify(identifier)
 
-      return { isEmail, isMobile, isValidIdentifier, identifier, user }
+      return { isEmail, isMobile, isValidIdentifier, identifier, user, canVerify }
     }
 
     return {
@@ -135,11 +137,18 @@ export const verificationInput = z
       identifier,
     }
   })
-  .superRefine(async ({ user, isValidIdentifier }, context) => {
+  .superRefine(async ({ user, isValidIdentifier, canVerify }, context) => {
     if (!isValidIdentifier) {
       return context.addIssue({
         code: z.ZodIssueCode.custom,
         message: '请提供有效的用户标识',
+      })
+    }
+
+    if (!canVerify) {
+      return context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: '请稍后再次发送验证码',
       })
     }
 
