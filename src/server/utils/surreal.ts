@@ -1,5 +1,6 @@
 import Surreal, { NoActiveSocket, SurrealDbError } from 'surrealdb'
 import { ZodError, ZodSchema, z } from 'zod'
+import { H3Event } from 'h3'
 
 const config = useRuntimeConfig()
 
@@ -61,5 +62,43 @@ export const executeQuery = async <ZodSchema extends z.ZodTypeAny>(
         message: '🪤 数据解析失败',
       })
     }
+  }
+}
+
+/**
+ * 计算符合条件的表记录数量。
+ *
+ * @param {string} table - 要查询的表名。
+ * @param {string} where - 查询条件。
+ * @returns {Promise<number | null>} 返回符合条件的记录数量，如果没有符合条件的记录则返回 null。
+ */
+export const countQueryResult = async (table: string, where: string) => {
+  const statement = /* surql */ `
+    SELECT count() FROM ${table} ${where} GROUP ALL;
+  `
+  const [result] = await executeQuery(statement)
+
+  return result && result.count ? (result.count as number) : null
+}
+
+/**
+ * 设置 `x-total-count` 头部信息。
+ *
+ * @param event - H3 事件对象。
+ * @param table - 数据库表名。
+ * @param where - 查询条件。
+ * @returns 一个 Promise，表示头部信息设置操作的完成。
+ */
+export const setXTotalCountHeader = async (
+  event: H3Event,
+  table: string,
+  where: string,
+) => {
+  const count = await countQueryResult(table, where)
+
+  if (count) {
+    setHeaders(event, {
+      'x-total-count': count,
+    })
   }
 }

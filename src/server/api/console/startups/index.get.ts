@@ -1,5 +1,5 @@
 import { list } from '~/schema/startup'
-import { executeQuery } from '~/server/utils/surreal'
+import { executeQuery, setXTotalCountHeader } from '~/server/utils/surreal'
 import { parseQuery } from '~/server/utils/app/parse'
 import { getFilter, getPagination, getSort } from '~/server/utils/app/param'
 
@@ -30,6 +30,9 @@ export default defineEventHandler(async (event) => {
     limit,
     start,
   }
+
+  // 统计查询总数量
+  await setXTotalCountHeader(event, 'startup', where)
 
   // 执行查询语句
   const result = executeQuery(statement, statementParams, list)
