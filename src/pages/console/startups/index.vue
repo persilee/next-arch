@@ -15,6 +15,9 @@ useHead({
 
 const store = useStartupStore()
 store.read()
+watch(store.params, () => {
+  store.read()
+})
 </script>
 
 <template>

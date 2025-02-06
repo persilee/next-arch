@@ -1,5 +1,6 @@
 import { type List } from '~/schema/startup'
 import qs from 'qs'
+import { pagination } from '@nuxt/ui/dist/runtime/ui.config'
 /**
  * StartupStore
  */
@@ -13,7 +14,12 @@ export const useStartupStore = defineStore('startup', () => {
       field: 'created',
       order: 'asc',
     },
+    pagination: {
+      page: 1,
+      pageSize: 25,
+    },
   })
+  const total = ref<number>()
 
   /**
    * Getters 🌵
@@ -28,8 +34,17 @@ export const useStartupStore = defineStore('startup', () => {
   /**
    * Actions 🚀
    */
+  const setTotal = (data: string | number | null) => {
+    if (data) {
+      total.value = parseInt(`${data}`, 10)
+    }
+  }
   const read = async () => {
-    const { data } = await useFetch(`/api/console/startups${queries.value}`)
+    const { data } = await useFetch(`/api/console/startups${queries.value}`, {
+      onResponse({ response }) {
+        setTotal(response.headers.get('x-total-count'))
+      },
+    })
 
     list.value = data.value || []
   }
@@ -37,5 +52,5 @@ export const useStartupStore = defineStore('startup', () => {
   /**
    * 返回值
    */
-  return { list, read }
+  return { list, read, params, total }
 })

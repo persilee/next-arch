@@ -52,13 +52,17 @@ const filtered = computed((item: any) => {
 const page = ref(1)
 const pageCount = ref(25)
 const total = computed(() => filtered.value.length)
-</script>
+</script> 
 
 <template>
   <div>
     <div class="mb-4 flex justify-between">
       <ConsoleFormSearch v-model="keyword" />
-      <ConsoleNavigationPagination v-model="page" :pageCount="pageCount" :total="total" />
+      <ConsoleNavigationPagination
+        v-model="store.params.pagination.page"
+        :pageCount="store.params.pagination.pageSize"
+        :total="store.total"
+      />
     </div>
     <UTable
       :emptyState="table.emptyState"
