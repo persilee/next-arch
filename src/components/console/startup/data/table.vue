@@ -5,6 +5,8 @@ const { table } = useAppConfig()
 
 const { data, pending } = await useLazyFetch<any>('/api/console/startups')
 
+const store = useStartupStore()
+
 const rows = computed(() => {
   if (!data.value) return []
   return filtered.value.slice(
@@ -62,7 +64,7 @@ const total = computed(() => filtered.value.length)
       :emptyState="table.emptyState"
       :loading="pending"
       :loadingState="table.loadingState"
-      :rows="rows"
+      :rows="store.list"
       :columns="columns"
     >
       <template #avatar-data="{ row }">

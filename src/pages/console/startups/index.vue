@@ -12,6 +12,9 @@ definePageMeta({
 useHead({
   title: '初创',
 })
+
+const store = useStartupStore()
+store.read()
 </script>
 
 <template>
