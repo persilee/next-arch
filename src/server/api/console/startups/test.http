@@ -21,15 +21,6 @@ Content-Type: {{contentType}}
   "password": "123456"
 }
 
-### 登录
-POST http://{{host}}/api/reception/signin/
-Content-Type: {{contentType}}
-
-{
-  "identifier": "i@lishaoy.net",
-  "password": "123456"
-}
-
 ### 发送验证码
 POST http://{{host}}/api/reception/verification/
 Content-Type: {{contentType}}
@@ -37,3 +28,14 @@ Content-Type: {{contentType}}
 {
   "identifier": "i@lishaoy.net"
 }
+
+### 登录
+POST http://{{host}}/api/reception/signin/
+Content-Type: {{contentType}}
+
+{
+  "identifier": "i@lishaoy.net",
+  "verification": "6457"
+}
+
+

@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import { compareHash, createHash } from '~/server/utils/app/hash'
 import { readUser } from '~/server/utils/user'
-import { isAllowVerify } from '~/server/utils/verification'
+import { compareVerification, isAllowVerify } from '~/server/utils/verification'
 
 const name = z
   .string({ required_error: '请提供用户名' })
@@ -20,6 +20,8 @@ const identifier = z
   .min(1, { message: '请提供用户标识' })
   .max(36, { message: '用户标识长度不能超过 36 位' })
   .trim()
+
+const verification = z.string().length(4, { message: '验证码是 4 位的数字' }).optional()
 
 /**
  * 定义用户注册输入的验证模式。
@@ -68,9 +70,10 @@ export const signupInput = z.object(
 export const signinInput = z
   .object({
     identifier,
-    password,
+    password: password.optional(),
+    verification,
   })
-  .transform(async ({ identifier, password }) => {
+  .transform(async ({ identifier, password, verification }) => {
     const user = await readUser(
       {
         name: identifier,
@@ -80,9 +83,9 @@ export const signinInput = z
       'OR',
     )
 
-    return { identifier, password, user }
+    return { identifier, password, user, verification }
   })
-  .superRefine(async ({ user, password }, context) => {
+  .superRefine(async ({ user, password, verification, identifier }, context) => {
     if (!user) {
       return context.addIssue({
         code: z.ZodIssueCode.custom,
@@ -90,12 +93,32 @@ export const signinInput = z
       })
     }
 
-    const isPasswordMatched = await compareHash(user.password!, password)
+    if (password) {
+      const isPasswordMatched = await compareHash(user.password!, password)
 
-    if (!isPasswordMatched) {
+      if (!isPasswordMatched) {
+        return context.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: '密码不匹配',
+        })
+      }
+    }
+
+    if (verification) {
+      const isVerificationValid = await compareVerification(identifier, verification)
+
+      if (!isVerificationValid) {
+        return context.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: '验证码无效或不匹配',
+        })
+      }
+    }
+
+    if (!password && !verification) {
       return context.addIssue({
         code: z.ZodIssueCode.custom,
-        message: '密码不匹配',
+        message: '请提供登录密码或验证码',
       })
     }
   })

@@ -287,5 +287,11 @@
 			" ${2}",
 			"`;"
 		]
+	},
+	"const async": {
+		"prefix": "aaf",
+		"body": [
+			"const $1 = async ($2) => {$3}",
+		]
 	}
 }
