@@ -14,6 +14,7 @@ const industry = z.string()
 const teamSize = z.number().nullable()
 const isTopValuation = z.boolean()
 const isTopRevenue = z.boolean()
+const tags = z.array(z.string())
 
 export const item = z.object({
   id,
@@ -25,6 +26,7 @@ export const item = z.object({
   teamSize,
   isTopRevenue,
   isTopValuation,
+  tags,
 })
 
 export const list = z.array(item)

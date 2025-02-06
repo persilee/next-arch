@@ -125,6 +125,11 @@ export const getFilter = (event: H3Event) => {
         const item = `${k1} ${k2} ${v2}`
         items.push(item)
       }
+
+      if (!isOperator(k1) && isOperator(k2) && isArray(v2)) {
+        const item = `${k1} ${k2} [${v2.join(', ')}]`
+        items.push(item)
+      }
     })
   })
 
