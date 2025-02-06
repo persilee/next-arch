@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { createHash } from '~/server/utils/app/hash'
 
 const name = z
   .string({ required_error: '请提供用户名' })
@@ -15,7 +16,7 @@ const password = z
 export const signupInput = z.object(
   {
     name,
-    password,
+    password: password.transform((value) => createHash(value)),
   },
   { required_error: '请提供注册数据' },
 )
