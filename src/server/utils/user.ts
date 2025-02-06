@@ -50,7 +50,7 @@ export async function readUser(
       return `${key} == $${key}`
     })
     // 用 connector 连接所有生成的字符串
-    .join(` ${connector}`)
+    .join(` ${connector} `)
 
   const statement = /* surql */ `
     SELECT * FROM user WHERE ${conditions};
