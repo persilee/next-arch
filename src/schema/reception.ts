@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import { createHash } from '~/server/utils/app/hash'
+import { readUser } from '~/server/utils/user'
 
 const name = z
   .string({ required_error: '请提供用户名' })
@@ -15,7 +16,16 @@ const password = z
 
 export const signupInput = z.object(
   {
-    name,
+    name: name.refine(
+      async (value) => {
+        const user = await readUser({ name: value })
+
+        return !user
+      },
+      {
+        message: '🙇‍♂️ 用户名已存在',
+      },
+    ),
     password: password.transform((value) => createHash(value)),
   },
   { required_error: '请提供注册数据' },

@@ -1,8 +1,8 @@
 import { signupInput } from '~/schema/reception'
 
 export default defineEventHandler(async (event) => {
+  const body = await readValidatedBody(event, signupInput.parseAsync)
   try {
-    const body = await readValidatedBody(event, signupInput.parseAsync)
     const [result] = await db.create('user', body)
 
     return result

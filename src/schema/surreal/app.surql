@@ -34,3 +34,5 @@ DEFINE EVENT startupUpdated ON TABLE startup WHEN $event == 'CREATE' THEN {
 };
 
 DEFINE INDEX nameIndex ON user FIELDS name UNIQUE;
+DEFINE INDEX mobileIndex ON user FIELDS mobile UNIQUE;
+DEFINE INDEX emailIndex ON user FIELDS email UNIQUE;
