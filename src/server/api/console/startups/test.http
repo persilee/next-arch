@@ -3,7 +3,7 @@
 @host = {{hostname}}:{{port}}
 @contentType = application/json
 
-###
+### 查询数据
 GET http://{{host}}/api/console/startups/
     ?pagination[page]=1
     &pagination[pageSize]=25
@@ -12,12 +12,11 @@ GET http://{{host}}/api/console/startups/
     # &filter[teamSize][<]=10
     # &filter[oneline][∋]='first'
 
-###
-POST http://{{host}}/api/console/startups/
+### 注册用户
+POST http://{{host}}/api/reception/signup/
 Content-Type: {{contentType}}
 
 {
-  "founder":"persilee",
-  "name": "黑喵",
-  "oneline": "~~~~"
+  "name": "Persilee",
+  "password": "123456"
 }
