@@ -29,3 +29,11 @@ Content-Type: {{contentType}}
   "identifier": "i@lishaoy.net",
   "password": "123456"
 }
+
+### 验证用户名
+POST http://{{host}}/api/reception/verification/
+Content-Type: {{contentType}}
+
+{
+  "identifier": "i@lishaoy.net"
+}
