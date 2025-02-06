@@ -18,8 +18,39 @@ export const useStartupStore = defineStore('startup', () => {
       page: 1,
       pageSize: 25,
     },
+    filter: {},
   })
   const total = ref<number>()
+
+  const keyword = ref<string>('')
+
+  watch(keyword, (value) => {
+    if (!value) {
+      params.value.filter = {}
+    }
+
+    if (value && value.length >= 2) {
+      params.value.filter = {
+        $or: [
+          {
+            name: {
+              '∋': `'${value}'`,
+            },
+          },
+          {
+            oneline: {
+              '∋': `'${value}'`,
+            },
+          },
+          {
+            industry: {
+              '∋': `'${value}'`,
+            },
+          },
+        ],
+      }
+    }
+  })
 
   /**
    * Getters 🌵
@@ -52,5 +83,5 @@ export const useStartupStore = defineStore('startup', () => {
   /**
    * 返回值
    */
-  return { list, read, params, total }
+  return { list, read, params, total, keyword }
 })

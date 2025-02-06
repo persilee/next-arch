@@ -3,17 +3,7 @@ import { UAvatar } from '#components'
 
 const { table } = useAppConfig()
 
-const { data, pending } = await useLazyFetch<any>('/api/console/startups')
-
 const store = useStartupStore()
-
-const rows = computed(() => {
-  if (!data.value) return []
-  return filtered.value.slice(
-    (page.value - 1) * pageCount.value,
-    page.value * pageCount.value,
-  )
-})
 
 const columns = [
   { key: 'avatar' },
@@ -36,28 +26,12 @@ const columns = [
     sortable: true,
   },
 ]
-
-const keyword = ref('')
-
-const filtered = computed((item: any) => {
-  if (!data.value) return []
-
-  return data.value.filter((item: any) => {
-    return Object.values(item).some((value) => {
-      return String(value).toLowerCase().includes(keyword.value.toLocaleLowerCase())
-    })
-  })
-})
-
-const page = ref(1)
-const pageCount = ref(25)
-const total = computed(() => filtered.value.length)
-</script> 
+</script>
 
 <template>
   <div>
     <div class="mb-4 flex justify-between">
-      <ConsoleFormSearch v-model="keyword" />
+      <ConsoleFormSearch v-model="store.keyword" />
       <ConsoleNavigationPagination
         v-model="store.params.pagination.page"
         :pageCount="store.params.pagination.pageSize"
@@ -66,7 +40,6 @@ const total = computed(() => filtered.value.length)
     </div>
     <UTable
       :emptyState="table.emptyState"
-      :loading="pending"
       :loadingState="table.loadingState"
       :rows="store.list"
       :columns="columns"
