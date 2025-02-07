@@ -19,6 +19,7 @@
     "@nuxt/ui": "^2.21.0",
     "@pinia/nuxt": "^0.9.0",
     "argon2": "^0.41.1",
+    "jsonwebtoken": "^9.0.2",
     "lodash-es": "^4.17.21",
     "nuxt": "^3.15.2",
     "pinia": "^2.3.1",
@@ -31,6 +32,7 @@
   "devDependencies": {
     "@iconify-json/ri": "^1.2.5",
     "@iconify-json/solar": "^1.2.2",
+    "@types/jsonwebtoken": "^9.0.8",
     "@types/lodash-es": "^4.17.12",
     "@types/qs": "^6.9.18",
     "dotenv-cli": "^8.0.0",

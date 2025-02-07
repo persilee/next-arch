@@ -1,3 +1,5 @@
+import type { Algorithm } from 'jsonwebtoken'
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
@@ -23,6 +25,14 @@ export default defineNuxtConfig({
       url: 'http://localhost:3303/rpc',
       namespace: 'heimiao',
       database: 'app',
+      scope: 'common',
+      tokenName: 'heimiao',
+    },
+    jwt: {
+      publicKey: '',
+      privateKey: '',
+      expiresIn: '7d',
+      algorithm: 'RS256' as Algorithm,
     },
   },
   ui: {},
