@@ -1,11 +1,7 @@
 import { z } from 'zod'
+import { record } from './common'
 
-const id = z
-  .object({
-    tb: z.string().min(1),
-    id: z.string().min(1),
-  })
-  .transform((value) => `${value.id.split(':')[1]}`)
+const id = record('user')
 const name = z.string()
 const avatar = z.string()
 const oneline = z.string()

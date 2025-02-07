@@ -17,7 +17,7 @@ POST http://{{host}}/api/reception/signup/
 Content-Type: {{contentType}}
 
 {
-  "name": "Persilee",
+  "name": "tester001",
   "password": "123456"
 }
 
@@ -29,13 +29,22 @@ Content-Type: {{contentType}}
   "identifier": "i@lishaoy.net"
 }
 
-### 登录
+### 验证码登录
 POST http://{{host}}/api/reception/signin/
 Content-Type: {{contentType}}
 
 {
   "identifier": "i@lishaoy.net",
   "verification": "6457"
+}
+
+### 密码登录
+POST http://{{host}}/api/reception/signin/
+Content-Type: {{contentType}}
+
+{
+  "identifier": "i@lishaoy.net",
+  "password": "123456"
 }
 
 

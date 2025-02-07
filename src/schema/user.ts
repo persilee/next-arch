@@ -19,3 +19,11 @@ export type Item = z.infer<typeof item>
 
 export const list = z.array(item)
 export type List = z.infer<typeof list>
+
+export const row = z.object({
+  id,
+  name,
+  password,
+  email,
+  mobile,
+})

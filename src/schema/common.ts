@@ -25,3 +25,17 @@ export const record = <Table extends string = string>(table?: Table) => {
     },
   )
 }
+
+/**
+ * 生成一个包含表名和ID的对象，并将ID转换为其冒号分隔的第二部分。
+ *
+ * @returns 一个包含表名和ID的对象，并将ID转换为其冒号分隔的第二部分。
+ */
+export const tableId = () => {
+  return z
+    .object({
+      tb: z.string().min(1),
+      id: z.string().min(1),
+    })
+    .transform((value) => `${value.id.split(':')[1]}`)
+}

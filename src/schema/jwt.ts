@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { record, tableId } from './common'
 
 const config = useRuntimeConfig()
 
@@ -25,7 +26,7 @@ export const token = z.object({
   TK: z.string().default(config.surreal.tokenName),
   ID: z.string(),
   name: z.string(),
-  iss: z.string(),
+  iss: z.string().optional(),
   iat: z.number().optional(),
   exp: z.number().optional(),
 })
