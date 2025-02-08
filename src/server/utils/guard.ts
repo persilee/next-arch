@@ -1,6 +1,8 @@
 import glob from 'glob-to-regexp'
 import type { H3Event, HTTPMethod } from 'h3'
 import { unauthorizedError } from './app/error'
+import { RoleName } from '~/schema/role'
+import { item } from '~/schema/startup'
 
 type AuthPath = {
   path: string
@@ -42,5 +44,44 @@ export const authGuard = (event: H3Event, data?: Array<string> | Array<AuthPath>
 
   if (!user) {
     throw unauthorizedError()
+  }
+}
+
+type Roles = Array<RoleName>
+type RolesPath = Array<{ roles: Roles; path: string; method: HTTPMethod }>
+
+/**
+ * 检查用户是否具有访问特定路径或执行特定操作的权限。
+ *
+ * @param event - H3 事件对象，包含请求的上下文信息。
+ * @param data - 包含角色或路径和角色的数组。
+ *
+ * @throws 如果用户没有相应的权限，将抛出 `unauthorizedError` 异常。
+ */
+export const rolesGuard = (event: H3Event, data: RolesPath | Roles) => {
+  const { user } = event.context
+
+  if (typeof data[0] === 'string') {
+    const result = data.some((item) => hasRole(user, item as RoleName))
+
+    if (!result) {
+      throw unauthorizedError()
+    }
+  }
+
+  if (typeof data[0] === 'object') {
+    ;(data as RolesPath).forEach(({ roles, path, method }) => {
+      if (glob(path).test(event.path)) {
+        const isMethodMatched = method ? method === event.method : true
+
+        if (!isMethodMatched) return
+
+        const result = roles.some((item) => hasRole(user, item))
+
+        if (!result) {
+          throw unauthorizedError()
+        }
+      }
+    })
   }
 }

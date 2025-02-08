@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import { item, type Item } from '~/schema/user'
+import { item as role, RoleName } from '~/schema/role'
 
 /**
  * 读取用户数据并验证其符合指定的 Zod 模式。
@@ -60,3 +61,36 @@ export async function readUser(
 
   return result && result.length ? schema.parse(result[0]) : null
 }
+
+/**
+ * 检查用户是否具有指定的角色。
+ *
+ * @param user - 用户对象，包含角色信息。
+ * @param roleName - 要检查的角色名称。
+ * @returns 如果用户具有指定角色，则返回 true；否则返回 false。
+ */
+export const hasRole = (user: Item, roleName: RoleName) => {
+  let result
+
+  if (!user || !user.roles || !user.roles.length) return
+
+  if (typeof user.roles[0] === 'string') {
+    result = user.roles.some((item) => item === `role:${roleName}`)
+  }
+
+  return result
+}
+
+/**
+ * 检查用户是否具有指定角色。
+ *
+ * @param roleName - 要检查的角色名称。
+ * @returns 一个函数，该函数接受一个用户对象，并返回该用户是否具有指定角色的布尔值。
+ */
+export const isRole = (roleName: RoleName) => (user: Item) => {
+  return hasRole(user, roleName)
+}
+
+export const isAdministrator = isRole('administrator')
+export const isEditor = isRole('editor')
+export const isStandard = isRole('standard')

@@ -72,14 +72,14 @@ export const useStartupStore = defineStore('startup', () => {
   }
 
   const read = async () => {
-    const { data } = await useFetch(`/api/console/startups${queries.value}`, {
+    const result = await $fetch(`/api/console/startups${queries.value}`, {
       onResponse({ response }) {
         setTotal(response.headers.get('x-total-count'))
       },
       ...useFetchInterceptor(),
     })
 
-    list.value = data.value || []
+    list.value = result || []
   }
 
   /**

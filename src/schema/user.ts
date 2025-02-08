@@ -1,11 +1,13 @@
 import { z } from 'zod'
 import { record } from './common'
+import { item as role } from '~/schema/role'
 
 const id = record('user')
 const name = z.string()
 const password = z.string().optional()
 const email = z.string().email().optional()
 const mobile = z.string().max(11).optional()
+const roles = z.union([z.array(record('role')), z.array(role)]).optional()
 
 export const item = z.object({
   id,
@@ -13,6 +15,7 @@ export const item = z.object({
   password,
   email,
   mobile,
+  roles,
 })
 
 export type Item = z.infer<typeof item>
@@ -26,4 +29,5 @@ export const row = z.object({
   password,
   email,
   mobile,
+  roles,
 })

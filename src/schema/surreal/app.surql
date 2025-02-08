@@ -43,4 +43,28 @@ DEFINE INDEX nameIndex ON user FIELDS name UNIQUE;
 DEFINE INDEX mobileIndex ON user FIELDS mobile UNIQUE;
 DEFINE INDEX emailIndex ON user FIELDS email UNIQUE;
 
+/*
+  定义了一个名为 `created` 的字段在 `verification` 表上。
+  该字段的值将会是以下三者之一：
+  1. `$before` 的值（如果存在）
+  2. `$value` 的值（如果存在）
+  3. 当前时间（如果前两者都不存在）
+*/
 DEFINE FIELD created ON verification VALUE $before OR $value OR time::now();
+
+DEFINE INDEX nameIndex ON role FIELDS name UNIQUE;
+
+CREATE role:administrator CONTENT {
+  name: 'administrator',
+  title: '管理'
+};
+
+CREATE role:editor CONTENT {
+  name: 'editor',
+  title: '编辑'
+};
+
+CREATE role:standard CONTENT {
+  name: 'standard',
+  title: '标准'
+};
