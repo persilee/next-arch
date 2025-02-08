@@ -47,6 +47,7 @@ const mainItems = computed<DropdownItem[][]>(() => {
           event.preventDefault()
           if (currentUser.value) {
             useCurrentUser(null)
+            useReceptionStore().signout()
           }
           navigateTo('/reception/signin')
         },

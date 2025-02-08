@@ -5,6 +5,8 @@ export default defineEventHandler(async (event) => {
   const body = await readValidatedBody(event, signinInput.parseAsync)
   const token = signToken(body.user)
 
+  setCookie(event, 'token', token, { httpOnly: true }) 
+
   return {
     id: body.user.id,
     name: body.user.name,

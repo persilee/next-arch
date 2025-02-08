@@ -10,6 +10,8 @@ export default defineEventHandler(async (event) => {
 
     const token = signToken(parsed)
 
+    setCookie(event, 'token', token, { httpOnly: true })
+
     return {
       id: parsed.id,
       name: parsed.name,

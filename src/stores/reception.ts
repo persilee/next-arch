@@ -89,6 +89,14 @@ export const useReceptionStore = defineStore('reception', () => {
     } catch (error) {}
   }
 
+  const signout = async () => {
+    try {
+      await $fetch('/api/reception/signout', {
+        method: 'POST',
+      })
+    } catch (error) {}
+  }
+
   /**
    * 返回值
    */
@@ -97,5 +105,6 @@ export const useReceptionStore = defineStore('reception', () => {
     signup,
     signin,
     verify,
+    signout,
   }
 })

@@ -42,6 +42,6 @@ export default defineNuxtConfig({
     },
   },
   routeRules: {
-    '/console/**': { ssr: false },
+    // '/console/**': { ssr: false },
   },
 })

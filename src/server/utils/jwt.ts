@@ -38,8 +38,15 @@ export const signToken = (user: { id: string; name: string }) => {
  */
 export const getToken = (event: H3Event) => {
   const authHeader = getRequestHeader(event, 'Authorization')
+  const tokenCookie = getCookie(event, 'token')
 
-  return authHeader ? authHeader.replace('Bearer ', '') : null
+  if (authHeader) {
+    return authHeader.replace('Bearer ', '')
+  }
+
+  if (tokenCookie) {
+    return tokenCookie
+  }
 }
 
 /**
