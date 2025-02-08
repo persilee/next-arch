@@ -5,6 +5,8 @@ type Props = { withName?: boolean; text?: string }
 
 const {} = defineProps<Props>()
 
+const { currentUser } = useCurrentUser()
+
 const colorMode = useColorMode()
 const currentColorModeIcon = computed(() => {
   switch (colorMode.value) {
@@ -21,9 +23,9 @@ const mainItems = computed<DropdownItem[][]>(() => {
   return [
     [
       {
-        label: 'Persilee',
+        label: currentUser.value?.name ?? '匿名',
         avatar: {
-          src: 'https://cravatar.cn/avatar/ebf4749fb999f134566782c20e67a3ac?s=96&d=robohash&r=G',
+          src: '/images/avatar-2.svg',
         },
       },
     ],
@@ -34,6 +36,19 @@ const mainItems = computed<DropdownItem[][]>(() => {
         click: (event: PointerEvent) => {
           event.preventDefault()
           currentItems.value = 'appearance'
+        },
+      },
+    ],
+    [
+      {
+        label: currentUser.value ? '退出' : '登录',
+        icon: currentUser.value ? 'i-solar-logout-2-outline' : 'i-solar-login-2-outline',
+        click: (event: PointerEvent) => {
+          event.preventDefault()
+          if (currentUser.value) {
+            useCurrentUser(null)
+          }
+          navigateTo('/reception/signin')
         },
       },
     ],
@@ -93,12 +108,9 @@ const items = computed(() => {
 <template>
   <UDropdown :items="items">
     <div class="flex gap-4 items-center">
-      <UAvatar
-        src="https://cravatar.cn/avatar/ebf4749fb999f134566782c20e67a3ac?s=96&d=robohash&r=G"
-        alt="头像"
-      />
+      <UAvatar src="/images/avatar-2.svg" alt="头像" />
       <div v-if="withName" :class="['text-gray-600 dark:text-gray-400', text]">
-        Persilee
+        {{ currentUser?.name ?? '匿名' }}
       </div>
     </div>
   </UDropdown>
