@@ -17,6 +17,8 @@ const {
   public: { appName },
 } = useRuntimeConfig()
 
+useCurrentUser()
+
 useHead({
   titleTemplate(title) {
     return title ? `${title} - ${appName}` : appName

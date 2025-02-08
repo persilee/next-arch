@@ -41,4 +41,7 @@ export default defineNuxtConfig({
       collections: ['solar', 'ri'],
     },
   },
+  routeRules: {
+    '/console/**': { ssr: false },
+  },
 })

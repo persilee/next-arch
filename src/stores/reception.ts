@@ -49,11 +49,13 @@ export const useReceptionStore = defineStore('reception', () => {
    */
   const signup = async () => {
     try {
-      await $fetch(`/api/reception/signup`, {
+      const result = await $fetch(`/api/reception/signup`, {
         method: 'POST',
         body: signupInput.value,
         ...useFetchInterceptor(),
       })
+
+      useCurrentUser(result)
 
       useToast().add({ title: '注册成功' })
     } catch (error) {}
@@ -61,11 +63,15 @@ export const useReceptionStore = defineStore('reception', () => {
 
   const signin = async () => {
     try {
-      await $fetch(`/api/reception/signin`, {
+      const result = await $fetch(`/api/reception/signin`, {
         method: 'POST',
         body: signinInput.value,
         ...useFetchInterceptor(),
       })
+
+      useCurrentUser(result)
+
+      navigateTo('/console/startups')
 
       useToast().add({ title: '登录成功' })
     } catch (error) {}

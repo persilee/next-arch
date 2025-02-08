@@ -35,7 +35,7 @@ const columns = [
       <ConsoleNavigationPagination
         v-model="store.params.pagination.page"
         :pageCount="store.params.pagination.pageSize"
-        :total="store.total"
+        :total="store.total ?? 0"
       />
     </div>
     <UTable
