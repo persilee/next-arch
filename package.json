@@ -16,6 +16,7 @@
     "sdb:update": "turbo sdb:schema"
   },
   "dependencies": {
+    "@casl/ability": "^6.7.3",
     "@nuxt/ui": "^2.21.0",
     "@pinia/nuxt": "^0.9.0",
     "argon2": "^0.41.1",

@@ -58,4 +58,7 @@ GET http://{{host}}/api/console/startups/
 Content-Type: {{contentType}}
 Authorization: Bearer {{administratorToken}}
 
-
+### 权限认证
+GET http://{{host}}/api/playground/ability/
+Content-Type: {{contentType}}
+Authorization: Bearer {{administratorToken}}
