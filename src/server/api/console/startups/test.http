@@ -61,4 +61,8 @@ Authorization: Bearer {{administratorToken}}
 ### 权限认证
 GET http://{{host}}/api/playground/ability/
 Content-Type: {{contentType}}
-Authorization: Bearer {{standardToken}}
+Authorization: Bearer {{administratorToken}}
+
+###
+PATCH http://{{host}}/api/console/settings/name/
+Authorization: Bearer {{administratorToken}}

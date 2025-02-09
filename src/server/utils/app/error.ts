@@ -15,3 +15,9 @@ export const unauthorizedError = buildError({
   statusMessage: 'Unauthorized',
   message: '未授权',
 })
+
+export const forbiddenError = buildError({
+  statusCode: 403,
+  statusMessage: 'Forbidden',
+  message: '没有权限',
+})

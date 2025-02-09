@@ -1,8 +1,9 @@
 import { AbilityBuilder, createMongoAbility } from '@casl/ability'
-import type { MongoAbility, ExtractSubjectType } from '@casl/ability'
+import type { MongoAbility, ExtractSubjectType, InferSubjects } from '@casl/ability'
 import { capitalize, get } from 'lodash-es'
 import { build } from 'nuxt'
-import type { Item } from '~/schema/user'
+import type { Item as User } from '~/schema/user'
+import type { Item as Startup } from '~/schema/startup'
 
 /**
  * @typedef {('create' | 'read' | 'update' | 'delete' | 'manage')} Actions
@@ -20,7 +21,7 @@ export type Actions = 'create' | 'read' | 'update' | 'delete' | 'manage'
 /**
  * 定义了一个联合类型 `Subjects`，表示可以是 'User'、'Startup' 或 'all'。
  */
-export type Subjects = 'User' | 'Startup' | 'all'
+export type Subjects = InferSubjects<User | Startup | 'all'>
 
 /**
  * 定义应用程序的能力类型。
@@ -46,27 +47,27 @@ export type AppAbility = MongoAbility<[Actions, Subjects]>
  * const ability = defineAbilityFor(user);
  * ```
  */
-export const defineAbilityFor = (user: Item) => {
-  const { can, cannot, build } = new AbilityBuilder<AppAbility>(createMongoAbility)
+export const defineAbilityFor = (user: User) => {
+  const { can, build } = new AbilityBuilder<AppAbility>(createMongoAbility)
 
-  if (isStandard(user)) {
-    can('update', 'User', ['name', 'email', 'mobile'], { id: { $eq: user.id as any } })
-  }
-
-  if (isEditor(user)) {
-    can('manage', 'Startup')
-  }
-
-  if (isAdministrator(user)) {
-    can('manage', 'all')
+  switch (true) {
+    case isStandard(user):
+      can('update', 'User', ['name', 'email', 'mobile'], { id: { $eq: user.id } })
+      break
+    case isEditor(user):
+      can('manage', 'Startup')
+      break
+    case isAdministrator(user):
+      can('manage', 'all')
+      break
   }
 
   return build({
     detectSubjectType(subject) {
-      const id: string = get(subject, 'id') ?? ''
+      const id: string = get(subject, 'id').toString() ?? ''
       const subjectType = capitalize(id.split(':')[0]) as ExtractSubjectType<Subjects>
 
-      return subjectType
+      return subjectType || subject.kind
     },
   })
 }

@@ -1,8 +1,9 @@
 import glob from 'glob-to-regexp'
 import type { H3Event, HTTPMethod } from 'h3'
-import { unauthorizedError } from './app/error'
+import { forbiddenError, unauthorizedError } from './app/error'
 import { RoleName } from '~/schema/role'
 import { item } from '~/schema/startup'
+import { Actions, Subjects } from './ability'
 
 type AuthPath = {
   path: string
@@ -84,4 +85,42 @@ export const rolesGuard = (event: H3Event, data: RolesPath | Roles) => {
       }
     })
   }
+}
+
+type Rule = {
+  action: Actions
+  subject: Subjects
+  field?: string
+}
+
+/**
+ * 检查事件的能力是否符合给定的规则。
+ *
+ * @param event - H3Event 对象，包含上下文信息。
+ * @param rule - 单个规则或规则数组，定义了需要检查的能力。
+ * @returns 如果符合规则，返回 true；否则抛出 forbiddenError 异常。
+ * @throws 如果能力不符合规则，抛出 forbiddenError 异常。
+ */
+export const abilityGuard = (event: H3Event, rule: Rule | Array<Rule>) => {
+  const { ability } = event.context
+
+  let result: boolean
+
+  if (Array.isArray(rule)) {
+    result = rule.some((item) => {
+      const { action, subject, field } = item
+
+      return ability.can(action, subject, field)
+    })
+  } else {
+    const { action, subject, field } = rule
+
+    result = ability.can(action, subject, field)
+  }
+
+  if (!result) {
+    throw forbiddenError()
+  }
+
+  return result
 }

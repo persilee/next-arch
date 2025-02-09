@@ -1,6 +1,7 @@
 import { z } from 'zod'
 import { record } from './common'
 
+const kind = z.enum(['Startup']).default('Startup')
 const id = record('user')
 const name = z.string()
 const avatar = z.string()
@@ -13,6 +14,7 @@ const isTopRevenue = z.boolean()
 const tags = z.array(z.string())
 
 export const item = z.object({
+  kind,
   id,
   name,
   avatar,
@@ -24,6 +26,8 @@ export const item = z.object({
   isTopValuation,
   tags,
 })
+
+export type Item = z.infer<typeof item>
 
 export const list = z.array(item)
 export type List = z.infer<typeof list>
