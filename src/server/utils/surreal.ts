@@ -102,3 +102,20 @@ export const setXTotalCountHeader = async (
     })
   }
 }
+
+/**
+ * 生成指定长度的 GUID。
+ *
+ * @param {number} [length=20] - GUID 的长度，默认为 20。
+ * @returns {Promise<string>} 返回生成的 GUID 字符串。
+ */
+export const guid = async (length: number = 20) => {
+  const statement = /* surql */ `
+   rand::guid($length)
+  `
+
+  const statementParams = { length }
+  const result = await executeQuery(statement, statementParams)
+
+  return result as string
+}

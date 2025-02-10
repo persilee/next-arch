@@ -1,3 +1,5 @@
+import { messageBase } from '~/schema/ws'
+
 export default defineNuxtPlugin((app) => {
   const config = useRuntimeConfig()
   const { port, protocol, host } = config.public.ws
@@ -10,6 +12,24 @@ export default defineNuxtPlugin((app) => {
 
   socket.addEventListener('message', (event) => {
     console.info('⭐️', event.data.toString())
+
+    try {
+      const message = messageBase.parse(event.data)
+      switch (message.name) {
+        case 'socketIdAssigned':
+          useState('socketId', () => message.data.socketId)
+          break
+        default:
+          break
+      }
+    } catch (error) {
+      console.error(event.data)
+    }
+  })
+
+  socket.addEventListener('close', (event) => {
+    const socketId = useState('socketId')
+    socketId.value = ''
   })
 
   return { provide: { socket } }
