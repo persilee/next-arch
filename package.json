@@ -29,6 +29,7 @@
     "surrealdb": "^1.1.0",
     "vue": "latest",
     "vue-router": "latest",
+    "ws": "^8.18.0",
     "zod": "^3.24.1"
   },
   "devDependencies": {
@@ -38,6 +39,7 @@
     "@types/jsonwebtoken": "^9.0.8",
     "@types/lodash-es": "^4.17.12",
     "@types/qs": "^6.9.18",
+    "@types/ws": "^8.5.14",
     "dotenv-cli": "^8.0.0",
     "turbo": "^2.4.0"
   }

@@ -49,7 +49,7 @@ POST http://{{host}}/api/reception/signin/
 Content-Type: {{contentType}}
 
 {
-  "identifier": "tester001",
+  "identifier": "Persilee",
   "password": "123456"
 }
 

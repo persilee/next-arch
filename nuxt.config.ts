@@ -15,6 +15,11 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       appName: '黑喵',
+      ws: {
+        port: 4000,
+        protocol: 'ws',
+        host: 'localhost',
+      },
     },
     api: {
       pageSize: 25,
