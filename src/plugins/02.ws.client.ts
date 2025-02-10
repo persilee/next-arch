@@ -23,7 +23,7 @@ export default defineNuxtPlugin((app) => {
           break
       }
     } catch (error) {
-      console.error(event.data)
+      console.error(error)
     }
   })
 

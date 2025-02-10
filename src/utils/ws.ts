@@ -1,5 +1,5 @@
-import { z, ZodSchema } from 'zod'
-import { socketIdAssigned } from '~/schema/ws'
+import { z } from 'zod'
+import { playground, socketIdAssigned } from '~/schema/ws'
 
 /**
  * 构建一个消息生成器，用于根据给定的 Zod 模式进行数据的构建和解析。
@@ -26,3 +26,5 @@ export const messageBuilder = <ZodSchema extends z.ZodTypeAny>(schema: ZodSchema
 }
 
 export const socketIdAssignedBuilder = messageBuilder(socketIdAssigned)
+
+export const playgroundBuilder = messageBuilder(playground)

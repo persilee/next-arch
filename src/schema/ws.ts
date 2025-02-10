@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-const messageName = z.enum(['socketIdAssigned'] as const)
+const messageName = z.enum(['socketIdAssigned', 'playground'] as const)
 export type MessageName = z.infer<typeof messageName>
 
 export const messageBase = z
@@ -23,7 +23,22 @@ const buildMessageSchema = <ZodSchema extends z.ZodTypeAny>(
   })
 }
 
+const socketId = z
+  .string()
+  .optional()
+  .transform((value) => {
+    return value ? value : useState('socketId').value
+  })
+
 export const socketIdAssigned = buildMessageSchema(
   'socketIdAssigned',
   z.object({ socketId: z.string() }),
+)
+
+export const playground = buildMessageSchema(
+  'playground',
+  z.object({
+    socketId,
+    content: z.string(),
+  }),
 )

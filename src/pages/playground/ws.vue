@@ -1,9 +1,19 @@
 <script setup lang="ts">
 const message = ref('')
 const sendMessage = () => {
-  useSocket().send(message.value)
+  useSocket().send(playgroundBuilder.build({ content: message.value }))
   message.value = ''
+
+  $fetch('/api/playground/ws', { method: 'POST', ...useFetchInterceptor() })
 }
+
+useMessageListener(
+  'playground',
+  (message) => {
+    console.info(message.data)
+  },
+  playgroundBuilder.parse,
+)
 </script>
 
 <template>

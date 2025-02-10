@@ -54,6 +54,12 @@ export const useFetchInterceptor = (options = { showError: true }) => {
         Authorization: `Bearer ${currentUser.value.token}`,
       })
     }
+
+    const socketId = useState<string>('socketId')
+
+    if (socketId.value) {
+      context.options.headers.append('x-socket-id', socketId.value)
+    }
   }
 
   return { onResponseError, onRequest }

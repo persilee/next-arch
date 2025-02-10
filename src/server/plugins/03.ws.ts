@@ -24,11 +24,8 @@ export default defineNitroPlugin(async (nitroApp) => {
       await removeSocket(socketId)
     })
 
-    socket.send('欢迎来到黑喵大家庭🐱')
-
     socket.on('message', (data, isBinary) => {
       console.info('💬', data.toString())
-      socket.send(`🌙 已收到消息：${data.toString()}`)
 
       socketServer.clients.forEach((client) => {
         if (client.readyState === WebSocket.OPEN && client != socket) {
