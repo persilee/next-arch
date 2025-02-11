@@ -1,9 +1,9 @@
 import { AbilityBuilder, createMongoAbility } from '@casl/ability'
 import type { MongoAbility, ExtractSubjectType, InferSubjects } from '@casl/ability'
 import { capitalize, get } from 'lodash-es'
-import { build } from 'nuxt'
 import type { Item as User } from '~/schema/user'
 import type { Item as Startup } from '~/schema/startup'
+import type { Item as Job } from '~/schema/bree'
 
 /**
  * @typedef {('create' | 'read' | 'update' | 'delete' | 'manage')} Actions
@@ -21,7 +21,7 @@ export type Actions = 'create' | 'read' | 'update' | 'delete' | 'manage'
 /**
  * 定义了一个联合类型 `Subjects`，表示可以是 'User'、'Startup' 或 'all'。
  */
-export type Subjects = InferSubjects<User | Startup | 'all'>
+export type Subjects = InferSubjects<User | Startup | Job | 'all'>
 
 /**
  * 定义应用程序的能力类型。
@@ -53,18 +53,16 @@ export const defineAbilityFor = (user: User) => {
   switch (true) {
     case isStandard(user):
       can('update', 'User', ['name', 'email', 'mobile'], { id: { $eq: user.id } })
-      break
     case isEditor(user):
       can('manage', 'Startup')
-      break
+      can('read', 'Job')
     case isAdministrator(user):
       can('manage', 'all')
-      break
   }
 
   return build({
     detectSubjectType(subject) {
-      const id: string = get(subject, 'id').toString() ?? ''
+      const id: string = get(subject, 'id')?.toString() ?? ''
       const subjectType = capitalize(id.split(':')[0]) as ExtractSubjectType<Subjects>
 
       return subjectType || subject.kind
