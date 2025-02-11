@@ -71,3 +71,13 @@ Authorization: Bearer {{administratorToken}}
 GET http://{{host}}/api/console/jobs/
 Content-Type: {{contentType}}
 Authorization: Bearer {{editorToken}}
+
+### 开始作业
+PATCH http://{{host}}/api/console/jobs/db/start
+Content-Type: {{contentType}}
+Authorization: Bearer {{editorToken}}
+
+### 停止作业
+PATCH http://{{host}}/api/console/jobs/db/stop/
+Content-Type: {{contentType}}
+Authorization: Bearer {{editorToken}}

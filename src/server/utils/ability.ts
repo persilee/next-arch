@@ -16,7 +16,7 @@ import type { Item as Job } from '~/schema/bree'
  * - `delete`: 删除操作
  * - `manage`: 管理操作
  */
-export type Actions = 'create' | 'read' | 'update' | 'delete' | 'manage'
+export type Actions = 'create' | 'read' | 'update' | 'delete' | 'execute' | 'manage'
 
 /**
  * 定义了一个联合类型 `Subjects`，表示可以是 'User'、'Startup' 或 'all'。
