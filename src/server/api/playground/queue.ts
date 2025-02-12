@@ -1,10 +1,16 @@
 export default defineEventHandler(async (event) => {
   const { user } = await readBody(event)
 
-  const result = await playgroundQueue.add('welcome', {
-    user,
-    content: '👏 欢迎来到黑喵',
-  })
+  const result = await playgroundQueue.add(
+    'welcome',
+    {
+      user,
+      content: '👏 欢迎来到黑喵',
+    },
+    {
+      delay: 3600,
+    },
+  )
 
   return result
 })

@@ -82,13 +82,24 @@ PATCH http://{{host}}/api/console/jobs/db/stop/
 Content-Type: {{contentType}}
 Authorization: Bearer {{editorToken}}
 
-### 停止作业
+### 执行队列任务
 POST http://{{host}}/api/playground/queue/
 Content-Type: {{contentType}}
 Authorization: Bearer {{editorToken}}
 
 {
   "user": {
-    "name": "tester001"
+    "name": "tester002"
+  }
+}
+
+### 执行队列任务
+POST http://{{host}}/api/playground/flow/
+Content-Type: {{contentType}}
+Authorization: Bearer {{editorToken}}
+
+{
+  "user": {
+    "name": "tester002"
   }
 }
