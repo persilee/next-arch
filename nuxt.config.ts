@@ -39,6 +39,12 @@ export default defineNuxtConfig({
       expiresIn: '7d',
       algorithm: 'RS256' as Algorithm,
     },
+    redis: {
+      host: '127.0.0.1',
+      port: 6379,
+      username: 'default',
+      password: '',
+    },
   },
   ui: {},
   icon: {

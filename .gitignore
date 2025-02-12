@@ -26,3 +26,4 @@ logs
 # App
 db/
 .turbo/
+dump.rdb
