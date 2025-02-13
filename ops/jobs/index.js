@@ -4,8 +4,11 @@ export default [
   //   timeout: '3s',
   //   interval: 'every 3 seconds',
   // },
+  // {
+  //   name: 'db',
+  //   timeout: '3s',
+  // },
   {
-    name: 'db',
-    timeout: '3s',
+    name: 'collect_static_page',
   },
 ]

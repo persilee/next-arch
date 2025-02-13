@@ -1,4 +1,3 @@
-import { Token } from '~/schema/jwt'
 import { isServerApi } from '../utils/app/common'
 import { getToken, verifyToken } from '../utils/jwt'
 import { item } from '~/schema/user'
