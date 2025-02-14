@@ -45,6 +45,10 @@ export default defineNuxtConfig({
       username: 'default',
       password: '',
     },
+    aliyun: {
+      accessKeyID: '',
+      accessKeySecret: '',
+    },
   },
   ui: {},
   icon: {
