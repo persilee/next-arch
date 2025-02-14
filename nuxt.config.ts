@@ -53,6 +53,6 @@ export default defineNuxtConfig({
     },
   },
   routeRules: {
-    // '/console/**': { ssr: false },
+    '/playground/startups': { ssr: false },
   },
 })

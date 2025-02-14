@@ -8,7 +8,10 @@ export default [
   //   name: 'db',
   //   timeout: '3s',
   // },
+  // {
+  //   name: 'collect_static_page',
+  // },
   {
-    name: 'collect_static_page',
+    name: 'collect_dynamic_page',
   },
 ]
