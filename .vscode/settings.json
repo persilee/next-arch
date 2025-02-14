@@ -25,5 +25,5 @@
   "tailwindCSS.classAttributes": ["class", "className", "ngClass", "ui"],
   "typescript.tsdk": "node_modules/typescript/lib",
   "explorer.compactFolders": false,
-  "cSpell.words": ["getdb", "heimiao"]
+  "cSpell.words": ["dysmsapi", "getdb", "heimiao"]
 }

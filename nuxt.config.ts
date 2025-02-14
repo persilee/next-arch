@@ -46,8 +46,13 @@ export default defineNuxtConfig({
       password: '',
     },
     aliyun: {
-      accessKeyID: '',
+      accessKeyId: '',
       accessKeySecret: '',
+      sms: {
+        verificationCodeTemplate: '',
+        signName: '',
+        endpoint: '',
+      },
     },
   },
   ui: {},

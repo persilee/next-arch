@@ -103,3 +103,13 @@ Authorization: Bearer {{editorToken}}
     "name": "tester002"
   }
 }
+
+### 发送短信
+POST http://{{host}}/api/playground/sms/
+Content-Type: {{contentType}}
+Authorization: Bearer {{editorToken}}
+
+{
+  "phoneNumbers": "13006610162",
+  "code": "6666"
+}
