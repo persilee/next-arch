@@ -34,6 +34,12 @@ export const sendVerificationCodeSms = async (phoneNumbers: string, code: string
 
     const runtime = new RuntimeOptions({})
 
-    await aliyunSms.sendSmsWithOptions(request, runtime)
-  } catch (error) {}
+    const response = await aliyunSms.sendSmsWithOptions(request, runtime)
+
+    return response.body
+  } catch (error: any) {
+    console.log(error.message)
+    // 诊断地址
+    console.log(error.data['Recommend'])
+  }
 }

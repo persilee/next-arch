@@ -11,7 +11,7 @@ export default [
   // {
   //   name: 'collect_static_page',
   // },
-  {
-    name: 'collect_dynamic_page',
-  },
+  // {
+  //   name: 'collect_dynamic_page',
+  // },
 ]
