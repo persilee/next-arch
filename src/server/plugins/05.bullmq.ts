@@ -1,10 +1,13 @@
 import { playgroundQueueEvents, playgroundSandboxWorker } from '../utils/bullmq'
+import { verificationWorker } from '../utils/verification'
 
 export default defineEventHandler(async (event) => {
   // playgroundWorker.run()
   // playgroundSandboxWorker.run()
   rollerCoasterWorker.run()
   rollerCoasterPrepareWorker.run()
+
+  verificationWorker.run()
 
   playgroundQueue.on('waiting', (job) => {
     console.log('⌛️ 已监听等待队列', job.data)

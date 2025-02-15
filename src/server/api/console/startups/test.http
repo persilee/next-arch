@@ -123,3 +123,12 @@ Authorization: Bearer {{editorToken}}
   "toAddress": "i@lishaoy.net",
   "code": "3333"
 }
+
+### 发送验证码
+POST http://{{host}}/api/playground/verification/
+Content-Type: {{contentType}}
+Authorization: Bearer {{editorToken}}
+
+{
+  "target": "13006610162"
+}
