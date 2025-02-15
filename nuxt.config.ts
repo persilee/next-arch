@@ -53,6 +53,11 @@ export default defineNuxtConfig({
         signName: '',
         endpoint: '',
       },
+      mail: {
+        endpoint: '',
+        notificationAccountName: '',
+        fromAlias: '',
+      },
     },
   },
   ui: {},

@@ -113,3 +113,13 @@ Authorization: Bearer {{editorToken}}
   "phoneNumbers": "13006610162",
   "code": "8888"
 }
+
+### 发送邮件
+POST http://{{host}}/api/playground/mail/
+Content-Type: {{contentType}}
+Authorization: Bearer {{editorToken}}
+
+{
+  "toAddress": "i@lishaoy.net",
+  "code": "3333"
+}

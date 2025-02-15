@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@alicloud/dm20151123':
+        specifier: ^1.2.4
+        version: 1.2.4
       '@alicloud/dysmsapi20170525':
         specifier: ^3.1.1
         version: 3.1.1
@@ -110,6 +113,9 @@ packages:
 
   '@alicloud/credentials@2.4.0':
     resolution: {integrity: sha512-TeAyiXnqv9ZudpeMMHbGah5Gyey8Rr9i7hydesyT07zYwBAOd+yWfR6dnFH8e3l1LfRbZU/AQ+6j0DsmfIQ+KQ==}
+
+  '@alicloud/dm20151123@1.2.4':
+    resolution: {integrity: sha512-JyiNNqylkKhVBtEHXhKp6mxLW+kV3h7HN3GzGBlpmVOld/Cf6T1HgXwDWTbe8hwCbjOaYT1UHcF+cJXCA7D6Ww==}
 
   '@alicloud/dysmsapi20170525@3.1.1':
     resolution: {integrity: sha512-UvrQo9p1b7A/JH209jPFLdtuYGywMrn4vWl48LwGxgZOH21i/LQXJKGhIUkeN9/CbdWsW709lkJ9kWvzmQZ5gQ==}
@@ -4440,6 +4446,16 @@ snapshots:
       httpx: 2.3.3
       ini: 1.3.8
       kitx: 2.2.0
+    transitivePeerDependencies:
+      - supports-color
+
+  '@alicloud/dm20151123@1.2.4':
+    dependencies:
+      '@alicloud/endpoint-util': 0.0.1
+      '@alicloud/openapi-client': 0.4.12
+      '@alicloud/openapi-util': 0.3.2
+      '@alicloud/tea-typescript': 1.8.0
+      '@alicloud/tea-util': 1.4.10
     transitivePeerDependencies:
       - supports-color
 
