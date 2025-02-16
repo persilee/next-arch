@@ -6,7 +6,7 @@
     ".output": true,
     ".vscode": true,
     ".npmrc": true,
-    // ".gitignore": true,
+    ".gitignore": true,
     "package-lock.json": true,
     "pnpm-lock.yaml": true,
     "README.md": true,

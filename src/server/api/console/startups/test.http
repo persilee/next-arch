@@ -132,3 +132,16 @@ Authorization: Bearer {{editorToken}}
 {
   "target": "13006610162"
 }
+
+### 上传文件
+POST http://{{host}}/api/console/files/
+Content-Type: multipart/form-data;
+Content-Disposition: form-data; name="file";
+Authorization: Bearer {{editorToken}}
+
+< /Users/lishaoying/Downloads/img_bg_introduce_1_a_1.png
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+
+
+### 下载文件
+GET http://{{host}}/api/console/files/gm0qo7t8hyt4rpre9fih/serve/
