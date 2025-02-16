@@ -27,3 +27,4 @@ logs
 db/
 .turbo/
 dump.rdb
+fs/

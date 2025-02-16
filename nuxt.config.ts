@@ -59,6 +59,9 @@ export default defineNuxtConfig({
         fromAlias: '',
       },
     },
+    fileSystem: {
+      directory: 'fs',
+    },
   },
   ui: {},
   icon: {

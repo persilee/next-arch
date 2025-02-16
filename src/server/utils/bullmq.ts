@@ -2,7 +2,6 @@ import path from 'node:path'
 import { Queue, Worker, QueueEvents, FlowProducer, type WorkerOptions } from 'bullmq'
 import { redisConnection } from './redis'
 import { delay } from './app/common'
-import { result } from 'lodash-es'
 
 const processor = (name: string) => {
   return path.resolve(path.join('ops', 'processors', `${name}.js`))

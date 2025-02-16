@@ -2,7 +2,6 @@ import glob from 'glob-to-regexp'
 import type { H3Event, HTTPMethod } from 'h3'
 import { forbiddenError, unauthorizedError } from './app/error'
 import { RoleName } from '~/schema/role'
-import { item } from '~/schema/startup'
 import { Actions, Subjects } from './ability'
 
 type AuthPath = {
