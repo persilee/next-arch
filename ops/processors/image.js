@@ -2,6 +2,7 @@ import fs from 'node:fs/promises'
 import path from 'node:path'
 import sharp from 'sharp'
 import { z } from 'zod'
+import exifReader from 'exif-reader'
 
 const extract = (data) => {
   let result = {}
@@ -13,6 +14,14 @@ const extract = (data) => {
 
   try {
     result = metadata.parse(data)
+
+    if (data.exif) {
+      const parsed = exifReader(data.exif)
+      result = {
+        ...result,
+        exif: parsed,
+      }
+    }
   } catch (error) {
     console.error(error)
   }
