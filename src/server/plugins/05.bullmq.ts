@@ -1,13 +1,18 @@
 import { playgroundQueueEvents, playgroundSandboxWorker } from '../utils/bullmq'
+import { imageProcessWorker } from '../utils/file'
 import { verificationWorker } from '../utils/verification'
 
 export default defineEventHandler(async (event) => {
   // playgroundWorker.run()
   // playgroundSandboxWorker.run()
-  rollerCoasterWorker.run()
-  rollerCoasterPrepareWorker.run()
+  // rollerCoasterWorker.run()
+  // rollerCoasterPrepareWorker.run()
+  // verificationWorker.run()
+  imageProcessWorker.run()
 
-  verificationWorker.run()
+  imageProcessWorker.on('completed', (job, result, prev) => {
+    console.log('image 任务已完成')
+  })
 
   playgroundQueue.on('waiting', (job) => {
     console.log('⌛️ 已监听等待队列', job.data)

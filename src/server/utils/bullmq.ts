@@ -3,7 +3,7 @@ import { Queue, Worker, QueueEvents, FlowProducer, type WorkerOptions } from 'bu
 import { redisConnection } from './redis'
 import { delay } from './app/common'
 
-const processor = (name: string) => {
+export const processor = (name: string) => {
   return path.resolve(path.join('ops', 'processors', `${name}.js`))
 }
 

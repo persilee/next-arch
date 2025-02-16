@@ -1,5 +1,8 @@
+import { Queue, Worker } from 'bullmq'
 import fs from 'node:fs/promises'
 import path from 'node:path'
+import { processor } from './bullmq'
+import { imageType } from '~/schema/app/common'
 
 const { fileSystem } = useRuntimeConfig()
 
@@ -47,5 +50,57 @@ export const mkdir = async (directory: string) => {
         console.log('❌ 创建目录失败', directory, error)
       }
     }
+  }
+}
+
+export const imageProcessQueue = new Queue('imageProcess', {
+  connection: redisConnection,
+})
+
+export const imageProcessWorker = new Worker('imageProcess', processor('image'), {
+  connection: redisConnection,
+  useWorkerThreads: true,
+  autorun: false,
+})
+
+/**
+ * 处理文件的函数，根据文件类型决定处理方式。
+ *
+ * @param fileType - 文件类型的字符串。
+ * @param id - 文件的唯一标识符。
+ * @param uid - 用户的唯一标识符。
+ * @param directory - 文件所在的目录路径。
+ * @returns 如果文件类型是图片，则返回一个添加到图像处理队列的任务。
+ */
+export const fileProcessor = (
+  fileType: string,
+  id: string,
+  uid: string,
+  directory: string,
+) => {
+  const { success: isImage } = imageType.safeParse(fileType)
+
+  if (isImage) {
+    return imageProcessQueue.add('imageProcess', {
+      items: [
+        {
+          action: 'extract',
+        },
+        {
+          action: 'format',
+          params: 'webp',
+        },
+        {
+          action: 'resize',
+          format: 'webp',
+          params: 'all',
+        },
+        {
+          action: 'resize',
+          params: 'all',
+        },
+      ],
+      meta: { id, uid, directory },
+    })
   }
 }

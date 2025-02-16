@@ -1,6 +1,7 @@
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import { createInput, type Row } from '~/schema/file'
+import { fileProcessor } from '~/server/utils/file'
 
 export default defineEventHandler(async (event) => {
   const { fileSystem } = useRuntimeConfig()
@@ -19,6 +20,8 @@ export default defineEventHandler(async (event) => {
     })
     await fs.writeFile(path.resolve(fileSystem.directory, uid), file.data)
     const [result] = await db.create('file', parsed)
+
+    await fileProcessor(file.type!, result.id.toString(), uid, fileSystemBase)
 
     return result
   } catch (error) {
