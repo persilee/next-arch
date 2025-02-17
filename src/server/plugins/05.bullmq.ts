@@ -12,11 +12,17 @@ export default defineEventHandler(async (event) => {
   imageProcessWorker.run()
 
   imageProcessWorker.on('completed', async (job, result, prev) => {
-    const { extract } = result || {}
+    const { extract, derived } = result || {}
     const { id } = job.data.meta
 
     if (extract) {
       await db.merge(new StringRecordId(id), { extract })
+    }
+
+    console.log('aaaaaaaa', derived)
+
+    if (derived) {
+      await db.merge(new StringRecordId(id), { derived })
     }
     console.log('image 任务已完成')
   })
