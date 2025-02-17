@@ -4,6 +4,14 @@ import sharp from 'sharp'
 import { z } from 'zod'
 import exifReader from 'exif-reader'
 
+const sizes = {
+  sm: 640,
+  md: 768,
+  lg: 1024,
+  xl: 1280,
+  '2xl': 1536,
+}
+
 /**
  * 从图像数据中提取元数据和EXIF信息。
  *
@@ -77,6 +85,50 @@ const format = async (item, base, filePath) => {
 }
 
 /**
+ * 调整图像大小的异步函数。
+ *
+ * @param {Object} item - 包含图像格式和参数的对象。
+ * @param {string} base - 基础路径。
+ * @param {string} filePath - 图像文件路径。
+ * @param {Object} metadata - 图像的元数据。
+ * @param {number} metadata.width - 图像的宽度。
+ * @returns {Promise<Array<Object>>} 返回包含调整大小后图像信息的数组。
+ */
+const resize = async (item, base, filePath, metadata) => {
+  const result = []
+
+  const resizeBase = item.format ? path.join(base, item.format) : base
+  const resizeFilePath = item.format ? path.join(resizeBase, 'os') : filePath
+
+  try {
+    await fs.access(resizeBase)
+  } catch (error) {
+    if (error.code === 'ENOENT') {
+      try {
+        await fs.mkdir(resizeBase, { recursive: true })
+      } catch (error) {
+        console.error('创建目录失败', resizeBase, error)
+      }
+    }
+  }
+
+  if (item.params === 'all') {
+    for (const size of Object.entries(sizes)) {
+      const [name, width] = size
+      if (metadata.width && metadata.width > width) {
+        const info = await sharp(resizeFilePath)
+          .resize({ width })
+          .toFile(path.join(resizeBase, name))
+
+        result.push({ name, ...info })
+      }
+    }
+  }
+
+  return result
+}
+
+/**
  * 处理图像任务的异步函数
  *
  * @param {Object} job - 包含任务数据的对象
@@ -123,6 +175,8 @@ export default async (job) => {
         derivedResult.push(...formatResult)
         break
       case 'resize':
+        const resizeResult = await resize(item, base, filePath, metadata)
+        derivedResult.push(...resizeResult)
         break
       default:
         break

@@ -19,8 +19,6 @@ export default defineEventHandler(async (event) => {
       await db.merge(new StringRecordId(id), { extract })
     }
 
-    console.log('aaaaaaaa', derived)
-
     if (derived) {
       await db.merge(new StringRecordId(id), { derived })
     }
