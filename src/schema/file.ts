@@ -37,3 +37,28 @@ export type Item = z.infer<typeof item>
 export const params = z.object({
   id: z.string().transform((value) => `file:${value}`),
 })
+
+export const exif = z
+  .object({
+    Image: z
+      .object({
+        DateTime: z.date().optional(),
+        Make: z.string().optional(),
+        Model: z.string().optional(),
+        Orientation: z.number().optional(),
+        Software: z.string().optional(),
+      })
+      .optional(),
+    Photo: z
+      .object({
+        ApertureValue: z.number().optional(),
+        ExposureTime: z.number().optional(),
+        FNumber: z.number().optional(),
+        FocalLength: z.number().optional(),
+        ISOSpeedRating: z.number().optional(),
+      })
+      .optional(),
+  })
+  .optional()
+
+export const extractResult = z.object({ exif })

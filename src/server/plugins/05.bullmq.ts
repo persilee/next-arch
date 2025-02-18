@@ -2,6 +2,7 @@ import { StringRecordId } from 'surrealdb'
 import { playgroundQueueEvents, playgroundSandboxWorker } from '../utils/bullmq'
 import { imageProcessWorker } from '../utils/file'
 import { verificationWorker } from '../utils/verification'
+import { extractResult } from '~/schema/file'
 
 export default defineEventHandler(async (event) => {
   // playgroundWorker.run()
@@ -16,7 +17,8 @@ export default defineEventHandler(async (event) => {
     const { id } = job.data.meta
 
     if (extract) {
-      await db.merge(new StringRecordId(id), { extract })
+      const parsed = extractResult.parse(extract)
+      await db.merge(new StringRecordId(id), { extract: parsed })
     }
 
     if (derived) {
