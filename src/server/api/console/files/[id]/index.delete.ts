@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import { StringRecordId } from 'surrealdb'
-import { params, type Row } from '~/schema/file'
+import { params, row, type Row } from '~/schema/file'
 
 export default defineEventHandler(async (event) => {
   const { id } = await getValidatedRouterParams(event, params.parse)
@@ -10,6 +10,8 @@ export default defineEventHandler(async (event) => {
   if (!result) {
     throw createError({ statusCode: 404 })
   }
+
+  abilityGuard(event, { action: 'delete', subject: row.parse(result) })
 
   const { uid } = result
   const filePath = path.join(fileSystemBase, uid)

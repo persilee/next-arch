@@ -1,6 +1,7 @@
 import { z } from 'zod'
 import { record } from './common'
 
+const kind = z.enum(['File']).default('File')
 const id = record('file')
 const uid = z.string()
 export const type = z.enum(['image/png', 'image/jpeg', 'image/jpg', 'video/mp4'] as const)
@@ -15,11 +16,13 @@ export const createInput = z.object({
 })
 
 export const row = z.object({
+  kind,
   id,
   uid,
   type,
   filename,
   size,
+  user: record('user'),
 })
 
 export type Row = z.infer<typeof row>
@@ -66,3 +69,16 @@ export const extractResult = z.object({ exif })
 export const updateInput = z.object({
   extract: z.object({ exif }).optional(),
 })
+
+export const query = z
+  .object({
+    format: z.enum(['webp'] as const).optional(),
+    size: z.enum(['os', 'sm', 'md', 'lg', 'xl', '2xl'] as const).optional(),
+  })
+  .transform((value) => {
+    if (value.format && !value.size) {
+      value.size = 'os'
+    }
+
+    return value
+  })

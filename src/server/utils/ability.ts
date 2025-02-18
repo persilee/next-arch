@@ -4,6 +4,7 @@ import { capitalize, get } from 'lodash-es'
 import type { Item as User } from '~/schema/user'
 import type { Item as Startup } from '~/schema/startup'
 import type { Item as Job } from '~/schema/bree'
+import type { Row as File } from '~/schema/file'
 
 /**
  * @typedef {('create' | 'read' | 'update' | 'delete' | 'manage')} Actions
@@ -21,7 +22,7 @@ export type Actions = 'create' | 'read' | 'update' | 'delete' | 'execute' | 'man
 /**
  * 定义了一个联合类型 `Subjects`，表示可以是 'User'、'Startup' 或 'all'。
  */
-export type Subjects = InferSubjects<User | Startup | Job | 'all'>
+export type Subjects = InferSubjects<User | Startup | Job | File | 'all'>
 
 /**
  * 定义应用程序的能力类型。
@@ -53,6 +54,9 @@ export const defineAbilityFor = (user: User) => {
   switch (true) {
     case isStandard(user):
       can('update', 'User', ['name', 'email', 'mobile'], { id: { $eq: user.id } })
+      can('create', 'File')
+      can('update', 'File', { user: { $eq: user.id } })
+      can('delete', 'File', { user: { $eq: user.id } })
     case isEditor(user):
       can('manage', 'Startup')
       can('read', 'Job')

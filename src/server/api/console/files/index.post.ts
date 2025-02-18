@@ -4,6 +4,8 @@ import path from 'node:path'
 import { createInput, type Row } from '~/schema/file'
 
 export default defineEventHandler(async (event) => {
+  abilityGuard(event, { action: 'create', subject: 'File' })
+
   try {
     const [fields, files] = await fileForm.parse(event.node.req)
     const results = []
@@ -24,7 +26,10 @@ export default defineEventHandler(async (event) => {
 
         const parsed = createInput.parse({ uid, type, filename, size })
 
-        const [result] = await db.create('file', parsed)
+        const [result] = await db.create('file', {
+          ...parsed,
+          user: event.context.user.id,
+        })
         results.push(result)
 
         if (type) {

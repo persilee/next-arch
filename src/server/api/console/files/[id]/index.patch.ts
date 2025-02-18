@@ -1,6 +1,6 @@
 import path from 'node:path'
 import { StringRecordId } from 'surrealdb'
-import { params, updateInput, type Row } from '~/schema/file'
+import { params, updateInput, row, type Row } from '~/schema/file'
 import { isJsonContent, isMultipartContent } from '~/server/utils/app/common'
 import fs from 'node:fs/promises'
 
@@ -11,6 +11,8 @@ export default defineEventHandler(async (event) => {
   if (!result) {
     throw createError({ statusCode: 404 })
   }
+
+  abilityGuard(event, { action: 'update', subject: row.parse(result) })
 
   const { uid } = result
 

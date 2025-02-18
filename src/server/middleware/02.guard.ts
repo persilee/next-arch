@@ -6,8 +6,8 @@ export default defineEventHandler(async (event) => {
 
   authGuard(event, ['/api/console/**'])
 
-  rolesGuard(event, [
-    { roles: ['editor', 'administrator'], path: '/api/console/**', method: 'GET' },
-    { roles: ['editor'], path: '/api/console/**', method: 'POST' },
-  ])
+  // rolesGuard(event, [
+  //   { roles: ['editor', 'administrator'], path: '/api/console/**', method: 'GET' },
+  //   { roles: ['editor'], path: '/api/console/**', method: 'POST' },
+  // ])
 })
