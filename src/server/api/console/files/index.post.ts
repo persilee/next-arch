@@ -1,34 +1,18 @@
-import fs from 'node:fs/promises'
-import path from 'node:path'
-import { createInput, type Row } from '~/schema/file'
-import { fileProcessor } from '~/server/utils/file'
+import { fileForm } from '~/server/utils/form'
 
 export default defineEventHandler(async (event) => {
-  const { fileSystem } = useRuntimeConfig()
-
-  const data = await readMultipartFormData(event)
-  const file = data?.find((item) => item.name === 'file')
-  if (!file) return
-
   try {
-    const uid = await guid()
-    const parsed = createInput.parse({
-      uid,
-      type: file.type,
-      filename: file.filename,
-      size: file.data.length,
-    })
-    await fs.writeFile(path.resolve(fileSystem.directory, uid), file.data)
-    const [result] = await db.create('file', parsed)
+    const [fields, files] = await fileForm.parse(event.node.req)
 
-    await fileProcessor(file.type!, result.id.toString(), uid, fileSystemBase)
+    console.log(fields)
+    console.log(files)
 
-    return result
+    return
   } catch (error) {
     throw createError({
       statusCode: 400,
-      message: '文件上传失败',
-      data: error,
+      statusMessage: 'Bad Request',
+      message: '无法上传文件',
     })
   }
 })

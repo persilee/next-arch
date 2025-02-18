@@ -3,7 +3,7 @@ import { record } from './common'
 
 const id = record('file')
 const uid = z.string()
-const type = z.enum(['image/png', 'image/jpeg'] as const)
+export const type = z.enum(['image/png', 'image/jpeg', 'image/jpg', 'video/mp4'] as const)
 const filename = z.string()
 const size = z.number()
 

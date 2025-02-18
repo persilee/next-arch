@@ -30,6 +30,7 @@
     "bullmq": "^5.40.2",
     "cheerio": "^1.0.0",
     "exif-reader": "^2.0.2",
+    "formidable": "^3.5.2",
     "glob-to-regexp": "^0.4.1",
     "jsonwebtoken": "^9.0.2",
     "lodash-es": "^4.17.21",
@@ -47,6 +48,7 @@
   "devDependencies": {
     "@iconify-json/ri": "^1.2.5",
     "@iconify-json/solar": "^1.2.2",
+    "@types/formidable": "^3.4.5",
     "@types/glob-to-regexp": "^0.4.4",
     "@types/jsonwebtoken": "^9.0.8",
     "@types/lodash-es": "^4.17.12",
