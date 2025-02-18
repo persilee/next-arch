@@ -142,6 +142,9 @@ Authorization: Bearer {{editorToken}}
 < /Users/lishaoying/Downloads/img_bg_introduce_1_a_1.png
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 
-
 ### 下载文件
 GET http://{{host}}/api/console/files/gm0qo7t8hyt4rpre9fih/serve/
+
+### 删除文件
+DELETE http://{{host}}/api/console/files/jntf9t1pwcwke0h12dsc
+Authorization: Bearer {{editorToken}}
