@@ -62,3 +62,7 @@ export const exif = z
   .optional()
 
 export const extractResult = z.object({ exif })
+
+export const updateInput = z.object({
+  extract: z.object({ exif }).optional(),
+})
