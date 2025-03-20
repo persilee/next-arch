@@ -71,16 +71,40 @@ export const useStartupStore = defineStore('startup', () => {
     }
   }
 
-  const read = async () => {
-    const result = await $fetch(`/api/console/startups${queries.value}`, {
-      onResponse({ response }) {
-        setTotal(response.headers.get('x-total-count'))
-      },
-      ...useFetchInterceptor(),
-    })
+  const read = (() => {
+    let abortController: AbortController | null = null
 
-    list.value = result || []
-  }
+    return async () => {
+      if (abortController) {
+        abortController.abort()
+      }
+
+      abortController = new AbortController()
+      const currentQuery = queries.value
+
+      try {
+        const result = await $fetch(`/api/console/startups${currentQuery}`, {
+          signal: abortController.signal,
+          onResponse({ response }) {
+            if (currentQuery === queries.value) {
+              setTotal(response.headers.get('x-total-count'))
+            }
+          },
+          ...useFetchInterceptor(),
+        })
+
+        if (currentQuery === queries.value) {
+          list.value = result || []
+        }
+      } catch (error: any) {
+        if (error.name !== 'AbortError') {
+          console.error('Fetch error:', error)
+        }
+      } finally {
+        abortController = null
+      }
+    }
+  })()
 
   /**
    * 返回值
